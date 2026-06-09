@@ -15,10 +15,18 @@ interface SanityImageProps {
 export default function SanityImage({ asset, alt = "", width, height, className, fill }: SanityImageProps) {
   if (!asset) return null
 
-  const imageUrl = urlForImage(asset).url()
+  let imageUrl = ""
+  try {
+    imageUrl = urlForImage(asset).url()
+  } catch (error) {
+    console.error("SanityImage: Failed to generate URL", error)
+    return null
+  }
+
+  if (!imageUrl) return null
 
   return (
-    <div className={cn("relative overflow-hidden bg-surface-card", className)}>
+    <div className={cn("relative overflow-hidden bg-surface-card w-full h-full", className)}>
       <Image
         src={imageUrl}
         alt={alt}
@@ -27,7 +35,7 @@ export default function SanityImage({ asset, alt = "", width, height, className,
         fill={fill}
         className={cn(
           "object-cover transition-opacity duration-300",
-          fill ? "h-full w-full" : ""
+          fill ? "absolute inset-0 h-full w-full" : ""
         )}
       />
     </div>

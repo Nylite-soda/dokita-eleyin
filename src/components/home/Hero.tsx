@@ -10,6 +10,8 @@ interface HeroProps {
 }
 
 export default function Hero({ data, stats }: HeroProps) {
+  console.log('Hero Image Debug:', data?.heroImage)
+
   return (
     <section className="relative min-h-[90vh] flex items-center bg-brand-darkBlue text-white overflow-hidden pt-20">
       {/* Background Symbol Overlay */}
