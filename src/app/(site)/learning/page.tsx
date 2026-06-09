@@ -15,7 +15,7 @@ export default async function LearningHubPage() {
 
   return (
     <div className="pt-32 pb-24 min-h-screen bg-white">
-      <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6 md:px-12">
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
           <SectionLabel>Learning Hub</SectionLabel>
           <h1 className="text-display-md md:text-display-lg font-display text-brand-navy">

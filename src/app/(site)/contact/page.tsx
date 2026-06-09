@@ -6,7 +6,7 @@ import { IconMail, IconPhone, IconMapPin, IconBrandInstagram, IconBrandTiktok, I
 export default function ContactPage() {
   return (
     <div className="pt-32 pb-24 bg-white min-h-screen">
-      <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
           {/* Left: Contact Info */}

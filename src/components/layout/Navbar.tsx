@@ -35,12 +35,12 @@ export default function Navbar() {
 
   return (
     <nav className={cn(
-      "fixed top-0 w-full z-50 transition-all duration-300 px-8 py-4 md:px-12",
+      "fixed top-0 w-full z-50 transition-all duration-300 px-6 py-4 md:px-12",
       isScrolled 
         ? "bg-white/90 backdrop-blur-md shadow-lg py-3" 
         : isHome ? "bg-transparent py-6" : "bg-white shadow-sm"
     )}>
-      <div className="max-w-4xl mx-auto flex justify-between items-center">
+      <div className="max-w-6xl mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center gap-3 group relative z-50">
           <div className="h-10 w-auto relative transform group-hover:rotate-2 transition-transform">
             {/* 

@@ -14,7 +14,7 @@ export default async function OutreachPage() {
 
   return (
     <div className="pt-32 pb-24 bg-white min-h-screen">
-      <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6 md:px-12">
         <div className="max-w-3xl mb-16 space-y-4">
           <SectionLabel>Outreach Events</SectionLabel>
           <h1 className="text-display-md md:text-display-lg font-display text-brand-navy leading-tight">

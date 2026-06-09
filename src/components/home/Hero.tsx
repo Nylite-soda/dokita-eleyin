@@ -22,7 +22,7 @@ export default function Hero({ data, stats }: HeroProps) {
         />
       </div>
 
-      <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-12 relative z-10">
+      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.1] tracking-tight">

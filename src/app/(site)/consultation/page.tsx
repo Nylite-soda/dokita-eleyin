@@ -22,7 +22,7 @@ export default function ConsultationPage() {
 
   return (
     <div className="pt-32 pb-24 bg-white min-h-screen">
-      <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
           <SectionLabel>Expert Guidance</SectionLabel>
           <h1 className="text-display-md md:text-display-lg font-display text-brand-navy">

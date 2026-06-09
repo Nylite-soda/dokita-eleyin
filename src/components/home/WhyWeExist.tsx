@@ -29,7 +29,7 @@ export default function WhyWeExist({ data }: WhyWeExistProps) {
 
   return (
     <section className="py-24 bg-white">
-      <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-12">
+      <div className="max-w-6xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="space-y-6">
             <SectionLabel variant="darkBlue">Our Purpose</SectionLabel>

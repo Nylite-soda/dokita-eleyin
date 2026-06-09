@@ -48,7 +48,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
   return (
     <div className="pt-32 pb-24 bg-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center space-y-6 mb-12">
             <Badge variant="children">{article.category?.name}</Badge>
