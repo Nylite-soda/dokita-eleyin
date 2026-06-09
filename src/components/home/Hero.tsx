@@ -24,43 +24,43 @@ export default function Hero({ data, stats }: HeroProps) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7 space-y-8">
-            <div className="w-48 mb-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
+            <div className="w-48 mx-auto lg:mx-0 mb-4">
                <img src="/logos/logo-stacked-white-tagline.svg" alt="Dókítà Eléyín" className="w-full" />
             </div>
-            <h1 className="text-display-lg md:text-display-xl font-display leading-[1.1]">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-[1.05] tracking-tight">
               {data?.heroHeadline || "Making oral health knowledge simple and accessible."}
             </h1>
-            <p className="text-lg md:text-xl text-blue-100/80 font-body max-w-2xl leading-relaxed">
+            <p className="text-xl md:text-2xl text-blue-100/80 font-body max-w-2xl mx-auto lg:mx-0 leading-relaxed">
               {data?.heroSubheadline || "We bridge the gap in dental education through community-led initiatives and simple, actionable guidance."}
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button variant="secondary" size="lg" onClick={() => window.location.href = data?.heroPrimaryCTA?.link || '/consultation'}>
+            <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
+              <Button variant="secondary" size="lg" className="px-10 py-6 text-xl" onClick={() => window.location.href = data?.heroPrimaryCTA?.link || '/consultation'}>
                 {data?.heroPrimaryCTA?.label || "Book a Consultation"}
               </Button>
-              <Button variant="ghost" size="lg" onClick={() => window.location.href = data?.heroSecondaryCTA?.link || '/about'}>
+              <Button variant="ghost" size="lg" className="px-10 py-6 text-xl" onClick={() => window.location.href = data?.heroSecondaryCTA?.link || '/about'}>
                 {data?.heroSecondaryCTA?.label || "Learn About Us"}
               </Button>
             </div>
 
             {/* Social Proof Stats */}
-            <div className="pt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 border-t border-white/10">
+            <div className="pt-12 grid grid-cols-2 sm:grid-cols-3 gap-8 border-t border-white/10">
               {stats?.slice(0, 3).map((stat, i) => (
-                <div key={i}>
-                  <div className="text-2xl font-display font-bold text-brand-lightBlue">
+                <div key={i} className="text-center lg:text-left">
+                  <div className="text-3xl font-display font-bold text-brand-lightBlue">
                     <AnimatedCounter value={stat.value} />+
                   </div>
-                  <div className="text-sm text-blue-100/60 font-body">{stat.label}</div>
+                  <div className="text-sm text-blue-100/60 font-body uppercase tracking-wider">{stat.label}</div>
                 </div>
               ))}
             </div>
           </div>
           
-          <div className="lg:col-span-5 hidden lg:block">
-            <div className="py-12 flex items-center justify-center">
-              <div className="aspect-[4/5] w-full max-h-[60vh] rounded-[2.5rem] overflow-hidden border-8 border-white/5 relative shadow-2xl">
+          <div className="lg:col-span-5 w-full">
+            <div className="py-8 lg:py-12 flex items-center justify-center">
+              <div className="aspect-[4/5] w-full max-w-md lg:max-w-none max-h-[50vh] lg:max-h-[60vh] rounded-[2.5rem] overflow-hidden border-8 border-white/5 relative shadow-2xl">
                 {data?.heroImage?.asset ? (
                   <SanityImage asset={data.heroImage} fill alt="Hero image" />
                 ) : (
