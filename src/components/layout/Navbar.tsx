@@ -22,6 +22,9 @@ export default function Navbar() {
   const pathname = usePathname()
   const isHome = pathname === '/'
 
+  // Add Home to links if not on homepage
+  const dynamicLinks = isHome ? NAV_LINKS : [{ label: 'Home', href: '/' }, ...NAV_LINKS]
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
@@ -49,7 +52,7 @@ export default function Navbar() {
         isScrolled ? "py-3" : "py-5"
       )}
     >
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-8">
         <nav 
           className={cn(
             "relative flex items-center justify-between transition-all duration-500 rounded-[2rem] px-6 py-2",
@@ -64,7 +67,7 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
             <div className="flex items-center px-4 py-1.5 rounded-full bg-black/5 backdrop-blur-sm mr-4 border border-white/10">
-              {NAV_LINKS.map((link) => (
+              {dynamicLinks.map((link) => (
                 <NavLink 
                   key={link.href} 
                   {...link} 
@@ -77,7 +80,7 @@ export default function Navbar() {
             <Link 
               href="/consultation" 
               className={cn(
-                "px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 transform active:scale-95 shadow-lg",
+                "px-8 py-2.5 rounded-full font-bold text-sm transition-all duration-300 transform active:scale-95 shadow-lg",
                 navTheme === 'dark' 
                   ? "bg-white text-brand-navy hover:bg-brand-lightBlue hover:text-brand-navy" 
                   : "bg-brand-darkBlue text-white hover:bg-brand-navy shadow-brand-darkBlue/20"
@@ -104,7 +107,12 @@ export default function Navbar() {
       {/* Mobile Navigation Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <MobileMenu isOpen={isMobileMenuOpen} onClose={toggleMobileMenu} />
+          <MobileMenu 
+            isOpen={isMobileMenuOpen} 
+            onClose={toggleMobileMenu} 
+            links={dynamicLinks} 
+            activePath={pathname} 
+          />
         )}
       </AnimatePresence>
     </header>
@@ -151,7 +159,7 @@ function NavLink({ label, href, isActive, theme }: { label: string, href: string
   )
 }
 
-function MobileMenu({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+function MobileMenu({ isOpen, onClose, links, activePath }: { isOpen: boolean, onClose: () => void, links: any[], activePath: string }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -175,7 +183,7 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean, onClose: () => void 
 
       <div className="h-full flex flex-col px-8 pt-20 pb-12 relative z-10">
         <div className="flex flex-col space-y-2">
-          {NAV_LINKS.map((link, i) => (
+          {links.map((link, i) => (
             <motion.div
               key={link.href}
               initial={{ x: -20, opacity: 0 }}
@@ -184,12 +192,24 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean, onClose: () => void 
             >
               <Link 
                 href={link.href}
-                className="flex items-center justify-between group py-3 border-b border-white/5"
+                className={cn(
+                  "flex items-center justify-between group py-3 border-b border-white/5",
+                  activePath === link.href ? "text-brand-lightBlue" : "text-white"
+                )}
               >
-                <span className="text-2xl font-display font-bold text-white group-hover:text-brand-lightBlue transition-colors">
+                <span className={cn(
+                  "text-2xl font-display font-bold transition-colors",
+                  activePath === link.href ? "text-brand-lightBlue" : "group-hover:text-brand-lightBlue"
+                )}>
                   {link.label}
                 </span>
-                <IconChevronRight className="text-white/20 group-hover:text-brand-lightBlue transform group-hover:translate-x-1 transition-all" size={24} />
+                <IconChevronRight 
+                  className={cn(
+                    "transform transition-all",
+                    activePath === link.href ? "text-brand-lightBlue translate-x-1" : "text-white/20 group-hover:text-brand-lightBlue group-hover:translate-x-1"
+                  )} 
+                  size={24} 
+                />
               </Link>
             </motion.div>
           ))}
