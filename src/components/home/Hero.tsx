@@ -58,7 +58,7 @@ export default function Hero({ data, stats }: HeroProps) {
           
           <div className="lg:col-span-5 hidden lg:block">
             <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden border-8 border-white/5 relative shadow-2xl">
-              {data?.heroImage ? (
+              {data?.heroImage?.asset ? (
                 <SanityImage asset={data.heroImage} fill alt="Hero image" />
               ) : (
                 <div className="w-full h-full bg-brand-navy/30 flex items-center justify-center text-white/10">
