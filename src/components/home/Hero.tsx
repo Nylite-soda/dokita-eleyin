@@ -10,8 +10,6 @@ interface HeroProps {
 }
 
 export default function Hero({ data, stats }: HeroProps) {
-  console.log('Hero Image Debug:', data?.heroImage)
-
   return (
     <section className="relative min-h-[90vh] flex items-center bg-brand-darkBlue text-white overflow-hidden pt-32 pb-20">
       {/* Background Symbol Overlay */}
@@ -59,8 +57,8 @@ export default function Hero({ data, stats }: HeroProps) {
           </div>
           
           <div className="lg:col-span-5 w-full">
-            <div className="py-8 lg:py-12 flex items-center justify-center">
-              <div className="aspect-[4/5] w-full max-w-md lg:max-w-none max-h-[50vh] lg:max-h-[60vh] rounded-[2.5rem] overflow-hidden border-8 border-white/5 relative shadow-2xl">
+            <div className="py-8 lg:py-0 flex items-center justify-center">
+              <div className="aspect-[4/5] w-full max-w-md lg:max-w-none max-h-[70vh] lg:max-h-[85vh] rounded-[3rem] overflow-hidden border-8 border-white/5 relative shadow-2xl">
                 {data?.heroImage?.asset ? (
                   <SanityImage asset={data.heroImage} fill alt="Hero image" />
                 ) : (

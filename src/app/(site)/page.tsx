@@ -15,12 +15,6 @@ export default async function HomePage() {
     client.fetch(homepageQuery),
     client.fetch(impactPageQuery)
   ])
-
-  console.log('Homepage Data Fetch:', { 
-    hasHeadline: !!data?.heroHeadline, 
-    headline: data?.heroHeadline,
-    hasImage: !!data?.heroImage?.asset 
-  })
   
   return (
     <div className="flex flex-col">
