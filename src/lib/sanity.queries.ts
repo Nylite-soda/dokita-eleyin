@@ -2,7 +2,7 @@
 import { groq } from 'next-sanity'
 
 export const homepageQuery = groq`
-  *[_type == "homepageSettings"][0] {
+  *[_type == "homepageSettings"] | order(_updatedAt desc) [0] {
     ...,
     featuredArticles[]-> {
       title,
