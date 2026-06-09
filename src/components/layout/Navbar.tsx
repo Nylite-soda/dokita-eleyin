@@ -1,11 +1,20 @@
 // src/components/layout/Navbar.tsx
 'use client'
+
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
-import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { IconMenu2, IconX, IconBrandInstagram, IconBrandTiktok } from '@tabler/icons-react'
+import { IconMenu2, IconX, IconBrandInstagram, IconBrandTiktok, IconChevronRight } from '@tabler/icons-react'
+import { cn } from '@/lib/utils'
+
+const NAV_LINKS = [
+  { label: 'Learning Hub', href: '/learning' },
+  { label: 'Programs', href: '/programs' },
+  { label: 'Outreach', href: '/outreach' },
+  { label: 'About', href: '/about' },
+  { label: 'Impact', href: '/impact' },
+]
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -14,140 +23,192 @@ export default function Navbar() {
   const isHome = pathname === '/'
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
+    const handleScroll = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   useEffect(() => {
     setIsMobileMenuOpen(false)
+    document.body.style.overflow = 'auto'
   }, [pathname])
 
-  const navLinks = [
-    { label: 'Learning Hub', href: '/learning' },
-    { label: 'Programs', href: '/programs' },
-    { label: 'Outreach', href: '/outreach' },
-    { label: 'About', href: '/about' },
-    { label: 'Impact', href: '/impact' },
-  ]
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+    document.body.style.overflow = isMobileMenuOpen ? 'auto' : 'hidden'
+  }
+
+  // Determine navbar theme
+  const isTransparent = isHome && !isScrolled && !isMobileMenuOpen
+  const navTheme = isTransparent ? 'dark' : 'light'
 
   return (
-    <nav className={cn(
-      "fixed top-0 w-full z-50 transition-all duration-300 px-6 py-4 md:px-12",
-      isScrolled 
-        ? "bg-white/90 backdrop-blur-md shadow-lg py-3" 
-        : isHome ? "bg-transparent py-6" : "bg-white shadow-sm"
-    )}>
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-3 group relative z-50">
-          <div className="h-10 w-auto relative transform group-hover:rotate-2 transition-transform">
-            {/* 
-              logo-horizontal-color.svg (76) - Default for light bg
-              logo-horizontal-white-tagline.svg (74) - Dark/transparent bg
-            */}
-            <img 
-              src={isScrolled || !isHome || isMobileMenuOpen ? "/logos/logo-horizontal-color.svg" : "/logos/logo-horizontal-white-tagline.svg"} 
-              alt="Dókítà Eléyín Logo" 
-              className="h-full w-auto" 
-            />
-          </div>
-        </Link>
-
-        {/* Desktop Links */}
-        <div className="hidden lg:flex space-x-8 items-center font-body font-medium">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.href} 
-              href={link.href} 
-              className={cn(
-                "transition-all hover:text-brand-lightBlue relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-lightBlue after:transition-all hover:after:w-full",
-                isScrolled || !isHome ? "text-ink/70" : "text-white/90"
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link 
-            href="/consultation" 
-            className={cn(
-              "px-8 py-2.5 rounded-full font-bold transition-all transform active:scale-95 shadow-md hover:shadow-lg",
-              isScrolled || !isHome 
-                ? "bg-brand-darkBlue text-white hover:bg-brand-navy" 
-                : "bg-white text-brand-darkBlue hover:bg-brand-lightBlue hover:text-brand-navy"
-            )}
-          >
-            Book a Consultation
-          </Link>
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <button 
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden relative z-50 p-2"
+    <header 
+      className={cn(
+        "fixed top-0 left-0 right-0 z-[100] transition-all duration-500",
+        isScrolled ? "py-3" : "py-5"
+      )}
+    >
+      <div className="max-w-6xl mx-auto px-6">
+        <nav 
+          className={cn(
+            "relative flex items-center justify-between transition-all duration-500 rounded-[2rem] px-6 py-2",
+            isScrolled 
+              ? "bg-white/80 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-white/20" 
+              : "bg-transparent"
+          )}
         >
-           {isMobileMenuOpen ? (
-             <IconX className="text-brand-navy" size={28} />
-           ) : (
-             <IconMenu2 className={cn(
-               isScrolled || !isHome ? "text-brand-navy" : "text-white"
-             )} size={28} />
-           )}
-        </button>
-      </div>
+          {/* Brand/Logo */}
+          <NavBrand theme={navTheme} isScrolled={isScrolled} />
 
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 bg-white z-40 lg:hidden flex flex-col pt-32 px-8 pb-12"
-          >
-            <div className="flex flex-col space-y-8 text-center">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  <Link 
-                    href={link.href} 
-                    className="text-3xl font-display font-bold text-brand-navy hover:text-brand-lightBlue transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-1">
+            <div className="flex items-center px-4 py-1.5 rounded-full bg-black/5 backdrop-blur-sm mr-4 border border-white/10">
+              {NAV_LINKS.map((link) => (
+                <NavLink 
+                  key={link.href} 
+                  {...link} 
+                  isActive={pathname === link.href}
+                  theme={navTheme}
+                />
               ))}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5 }}
-                className="pt-8"
-              >
-                <Link 
-                  href="/consultation" 
-                  className="inline-block w-full bg-brand-darkBlue text-white text-xl py-5 rounded-[2rem] font-bold shadow-xl"
-                >
-                  Book a Consultation
-                </Link>
-              </motion.div>
             </div>
             
-            <div className="mt-auto pt-12 text-center border-t border-surface-card">
-              <p className="text-sm font-body text-ink/40 mb-4">Follow our journey</p>
-              <div className="flex justify-center gap-6 text-brand-darkBlue">
-                 <IconBrandInstagram size={28} />
-                 <IconBrandTiktok size={28} />
-              </div>
-            </div>
-          </motion.div>
+            <Link 
+              href="/consultation" 
+              className={cn(
+                "px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 transform active:scale-95 shadow-lg",
+                navTheme === 'dark' 
+                  ? "bg-white text-brand-navy hover:bg-brand-lightBlue hover:text-brand-navy" 
+                  : "bg-brand-darkBlue text-white hover:bg-brand-navy shadow-brand-darkBlue/20"
+              )}
+            >
+              Book Consultation
+            </Link>
+          </div>
+
+          {/* Mobile Toggle */}
+          <button 
+            onClick={toggleMobileMenu}
+            className={cn(
+              "lg:hidden p-2 rounded-xl transition-colors relative z-50",
+              navTheme === 'dark' ? "text-white hover:bg-white/10" : "text-brand-navy hover:bg-brand-navy/5"
+            )}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <IconX size={24} /> : <IconMenu2 size={24} />}
+          </button>
+        </nav>
+      </div>
+
+      {/* Mobile Navigation Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <MobileMenu isOpen={isMobileMenuOpen} onClose={toggleMobileMenu} />
         )}
       </AnimatePresence>
-    </nav>
+    </header>
   )
 }
 
+function NavBrand({ theme, isScrolled }: { theme: 'light' | 'dark', isScrolled: boolean }) {
+  return (
+    <Link href="/" className="relative z-50 flex items-center transition-transform hover:scale-[1.02] active:scale-[0.98]">
+      <div className="h-9 md:h-11 w-auto relative">
+        <img 
+          src={theme === 'dark' ? "/logos/logo-horizontal-white-tagline.svg" : "/logos/logo-horizontal-color.svg"} 
+          alt="Dókítà Eléyín" 
+          className="h-full w-auto object-contain transition-all duration-300"
+        />
+      </div>
+    </Link>
+  )
+}
+
+function NavLink({ label, href, isActive, theme }: { label: string, href: string, isActive: boolean, theme: 'light' | 'dark' }) {
+  return (
+    <Link 
+      href={href} 
+      className={cn(
+        "relative px-4 py-2 text-sm font-medium transition-colors duration-300 group",
+        isActive 
+          ? (theme === 'dark' ? "text-brand-lightBlue" : "text-brand-darkBlue")
+          : (theme === 'dark' ? "text-white/80 hover:text-white" : "text-brand-navy/70 hover:text-brand-navy")
+      )}
+    >
+      <span className="relative z-10">{label}</span>
+      {isActive && (
+        <motion.span 
+          layoutId="activeNav"
+          className={cn(
+            "absolute inset-0 rounded-full z-0 shadow-sm",
+            theme === 'dark' ? "bg-white/10" : "bg-white"
+          )}
+          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+        />
+      )}
+    </Link>
+  )
+}
+
+function MobileMenu({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-brand-navy z-[90] lg:hidden overflow-hidden"
+    >
+      {/* Background patterns */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-lightBlue rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-brand-cyan rounded-full blur-[120px]" />
+      </div>
+
+      <div className="h-full flex flex-col px-8 pt-32 pb-12 relative z-10">
+        <div className="flex flex-col space-y-4">
+          {NAV_LINKS.map((link, i) => (
+            <motion.div
+              key={link.href}
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.1 + i * 0.1 }}
+            >
+              <Link 
+                href={link.href}
+                className="flex items-center justify-between group py-4 border-b border-white/10"
+              >
+                <span className="text-3xl font-display font-bold text-white group-hover:text-brand-lightBlue transition-colors">
+                  {link.label}
+                </span>
+                <IconChevronRight className="text-white/30 group-hover:text-brand-lightBlue transform group-hover:translate-x-1 transition-all" size={32} />
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div 
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="mt-auto space-y-8"
+        >
+          <Link 
+            href="/consultation" 
+            className="flex items-center justify-center w-full bg-white text-brand-navy text-xl py-5 rounded-[2rem] font-bold shadow-xl shadow-black/20 hover:bg-brand-lightBlue transition-colors active:scale-[0.98] transition-transform"
+          >
+            Book a Consultation
+          </Link>
+
+          <div className="text-center">
+            <p className="text-sm font-body text-white/40 mb-6 uppercase tracking-widest">Follow our journey</p>
+            <div className="flex justify-center gap-8 text-white/60">
+               <a href="#" className="hover:text-brand-lightBlue transition-colors"><IconBrandInstagram size={32} /></a>
+               <a href="#" className="hover:text-brand-lightBlue transition-colors"><IconBrandTiktok size={32} /></a>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  )
+}
