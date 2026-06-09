@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import CategoryFilter from '@/components/learning/CategoryFilter'
 import ArticleCard from '@/components/learning/ArticleCard'
+import EmptyState from '@/components/ui/EmptyState'
+import { IconSearch } from '@tabler/icons-react'
 
 interface LearningHubClientProps {
   articles: any[]
@@ -31,9 +33,16 @@ export default function LearningHubClient({ articles, categories }: LearningHubC
           ))}
         </div>
       ) : (
-        <div className="py-20 text-center text-ink/40 font-body">
-          No articles found in this category.
-        </div>
+        <EmptyState 
+          title="No articles found" 
+          message={activeCategory 
+            ? "We haven't published anything in this category yet. Check back soon!" 
+            : "The Learning Hub is currently being updated with new dental tips."
+          }
+          icon={<IconSearch size={32} />}
+          actionLabel={activeCategory ? "Show all articles" : undefined}
+          actionHref={activeCategory ? "/learning" : undefined}
+        />
       )}
     </>
   )
