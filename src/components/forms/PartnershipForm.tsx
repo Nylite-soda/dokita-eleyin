@@ -65,12 +65,12 @@ export default function PartnershipForm() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="text-sm font-bold font-display text-brand-navy">Organization Name</label>
-              <input {...register('organizationName')} className="w-full bg-surface-soft border-none rounded-2xl px-6 py-4" />
+              <input {...register('organizationName')} className="w-full bg-surface-soft border-none rounded-2xl px-8 py-4" />
               {errors.organizationName && <p className="text-xs text-red-500">{errors.organizationName.message}</p>}
             </div>
             <div className="space-y-2">
               <label className="text-sm font-bold font-display text-brand-navy">Contact Person</label>
-              <input {...register('contactPerson')} className="w-full bg-surface-soft border-none rounded-2xl px-6 py-4" />
+              <input {...register('contactPerson')} className="w-full bg-surface-soft border-none rounded-2xl px-8 py-4" />
               {errors.contactPerson && <p className="text-xs text-red-500">{errors.contactPerson.message}</p>}
             </div>
           </div>
@@ -78,12 +78,12 @@ export default function PartnershipForm() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="text-sm font-bold font-display text-brand-navy">Work Email</label>
-              <input {...register('email')} className="w-full bg-surface-soft border-none rounded-2xl px-6 py-4" />
+              <input {...register('email')} className="w-full bg-surface-soft border-none rounded-2xl px-8 py-4" />
               {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
             </div>
             <div className="space-y-2">
               <label className="text-sm font-bold font-display text-brand-navy">Phone Number</label>
-              <input {...register('phone')} className="w-full bg-surface-soft border-none rounded-2xl px-6 py-4" />
+              <input {...register('phone')} className="w-full bg-surface-soft border-none rounded-2xl px-8 py-4" />
               {errors.phone && <p className="text-xs text-red-500">{errors.phone.message}</p>}
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function PartnershipForm() {
 
           <div className="space-y-2">
             <label className="text-sm font-bold font-display text-brand-navy">Tell us more</label>
-            <textarea {...register('message')} rows={4} className="w-full bg-surface-soft border-none rounded-2xl px-6 py-4 resize-none" />
+            <textarea {...register('message')} rows={4} className="w-full bg-surface-soft border-none rounded-2xl px-8 py-4 resize-none" />
           </div>
 
           <Button type="submit" className="w-full" disabled={status === 'loading'}>

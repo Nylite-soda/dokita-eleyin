@@ -29,7 +29,7 @@ export default async function AboutPage() {
     <div className="pt-32 flex flex-col">
       {/* Hero */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-8">
           <div className="max-w-3xl space-y-6">
             <SectionLabel>Our Story</SectionLabel>
             <h1 className="text-display-md md:text-display-lg font-display text-brand-navy leading-tight">
@@ -44,7 +44,7 @@ export default async function AboutPage() {
 
       {/* Mission & Vision */}
       <section className="py-24 bg-surface-soft">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="bg-white p-12 rounded-[2.5rem] space-y-6 shadow-sm border border-brand-lightBlue/5">
               <div className="w-12 h-12 bg-brand-lightBlue/10 text-brand-darkBlue rounded-2xl flex items-center justify-center">
@@ -70,7 +70,7 @@ export default async function AboutPage() {
 
       {/* Core Values */}
       <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-8">
           <div className="text-center mb-16 space-y-4">
             <SectionLabel>What Drives Us</SectionLabel>
             <h2 className="text-display-sm font-display text-brand-navy">Our Core Values</h2>

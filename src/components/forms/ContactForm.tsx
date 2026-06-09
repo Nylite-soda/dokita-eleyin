@@ -57,7 +57,7 @@ export default function ContactForm() {
               <input 
                 {...register('name')}
                 placeholder="Name" 
-                className="w-full bg-white border-none rounded-2xl px-6 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm"
+                className="w-full bg-white border-none rounded-2xl px-8 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm"
               />
               {errors.name && <p className="text-xs text-red-500 ml-1">{errors.name.message}</p>}
             </div>
@@ -66,7 +66,7 @@ export default function ContactForm() {
               <input 
                 {...register('email')}
                 placeholder="Email" 
-                className="w-full bg-white border-none rounded-2xl px-6 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm"
+                className="w-full bg-white border-none rounded-2xl px-8 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm"
               />
               {errors.email && <p className="text-xs text-red-500 ml-1">{errors.email.message}</p>}
             </div>
@@ -76,7 +76,7 @@ export default function ContactForm() {
             <label className="text-sm font-bold font-display text-brand-navy ml-1">Subject</label>
             <select 
               {...register('subject')}
-              className="w-full bg-white border-none rounded-2xl px-6 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm appearance-none"
+              className="w-full bg-white border-none rounded-2xl px-8 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm appearance-none"
             >
               <option value="">Select a subject</option>
               <option value="General Enquiry">General Enquiry</option>
@@ -94,7 +94,7 @@ export default function ContactForm() {
               {...register('message')}
               rows={5} 
               placeholder="How can we help you?"
-              className="w-full bg-white border-none rounded-2xl px-6 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm resize-none"
+              className="w-full bg-white border-none rounded-2xl px-8 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm resize-none"
             />
             {errors.message && <p className="text-xs text-red-500 ml-1">{errors.message.message}</p>}
           </div>
@@ -115,3 +115,4 @@ export default function ContactForm() {
     </div>
   )
 }
+

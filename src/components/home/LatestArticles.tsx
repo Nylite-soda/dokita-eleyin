@@ -10,7 +10,7 @@ interface LatestArticlesProps {
 export default function LatestArticles({ articles }: LatestArticlesProps) {
   return (
     <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
           <div className="space-y-4">
             <SectionLabel>Learning Hub</SectionLabel>
@@ -34,3 +34,4 @@ export default function LatestArticles({ articles }: LatestArticlesProps) {
     </section>
   )
 }
+

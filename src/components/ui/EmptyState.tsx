@@ -19,7 +19,7 @@ export default function EmptyState({
   icon 
 }: EmptyStateProps) {
   return (
-    <div className="py-20 px-4 text-center max-w-lg mx-auto space-y-6">
+    <div className="py-20 px-8 text-center max-w-lg mx-auto space-y-6">
       <div className="w-20 h-20 bg-surface-card rounded-3xl flex items-center justify-center mx-auto text-brand-darkBlue/20">
         {icon || (
           <img src="/logos/icon-symbol-color.svg" alt="" className="w-10 h-10 opacity-20" />
@@ -37,3 +37,4 @@ export default function EmptyState({
     </div>
   )
 }
+

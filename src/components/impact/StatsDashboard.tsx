@@ -18,7 +18,7 @@ const iconMap: Record<string, any> = {
 export default function StatsDashboard({ stats }: StatsDashboardProps) {
   return (
     <section className="py-24 bg-brand-navy text-white rounded-[3rem] my-12 mx-4 sm:mx-6 lg:mx-8">
-      <div className="max-w-7xl mx-auto px-8">
+      <div className="max-w-4xl mx-auto px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12">
           {stats?.map((stat, i) => (
             <div key={i} className="text-center space-y-4">
@@ -40,3 +40,4 @@ export default function StatsDashboard({ stats }: StatsDashboardProps) {
     </section>
   )
 }
+

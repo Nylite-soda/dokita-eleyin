@@ -18,7 +18,7 @@ export default function CategoryFilter({
       <button
         onClick={() => onCategoryChange(null)}
         className={cn(
-          "px-6 py-2 rounded-full text-sm font-semibold transition-all",
+          "px-8 py-2 rounded-full text-sm font-semibold transition-all",
           activeCategory === null 
             ? "bg-brand-darkBlue text-white" 
             : "bg-surface-card text-ink/60 hover:bg-brand-lightBlue/10"
@@ -32,7 +32,7 @@ export default function CategoryFilter({
           key={cat._id}
           onClick={() => onCategoryChange(cat.slug.current)}
           className={cn(
-            "px-6 py-2 rounded-full text-sm font-semibold transition-all",
+            "px-8 py-2 rounded-full text-sm font-semibold transition-all",
             activeCategory === cat.slug.current
               ? "bg-brand-darkBlue text-white"
               : "bg-surface-card text-ink/60 hover:bg-brand-lightBlue/10"
@@ -44,3 +44,4 @@ export default function CategoryFilter({
     </div>
   )
 }
+

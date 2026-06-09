@@ -41,3 +41,4 @@ export default function SanityImage({ asset, alt = "", width, height, className,
     </div>
   )
 }
+

@@ -21,12 +21,10 @@ export default function Hero({ data, stats }: HeroProps) {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
-            <div className="w-48 mx-auto lg:mx-0 mb-4">
-               <img src="/logos/logo-stacked-white-tagline.svg" alt="Dókítà Eléyín" className="w-full" />
-            </div>
+            <SectionLabel variant="lightBlue">Welcome to Dókítà Eléyín</SectionLabel>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.1] tracking-tight">
               {data?.heroHeadline || "Making oral health knowledge simple and accessible."}
             </h1>

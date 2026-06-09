@@ -14,7 +14,7 @@ export default async function OutreachPage() {
 
   return (
     <div className="pt-32 pb-24 bg-white min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-8">
         <div className="max-w-3xl mb-16 space-y-4">
           <SectionLabel>Outreach Events</SectionLabel>
           <h1 className="text-display-md md:text-display-lg font-display text-brand-navy leading-tight">
@@ -47,7 +47,7 @@ export default async function OutreachPage() {
                 
                 <div className="p-8 lg:p-12 lg:w-2/3 flex flex-col justify-center space-y-6">
                   <div className="flex flex-wrap gap-3">
-                    <span className="bg-brand-lightBlue text-brand-navy px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+                    <span className="bg-brand-lightBlue text-brand-navy px-8 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
                       {event.venueType?.replace('_', ' ')}
                     </span>
                     <div className="flex items-center gap-1 text-ink/40 text-sm font-body">
@@ -96,3 +96,4 @@ export default async function OutreachPage() {
     </div>
   )
 }
+

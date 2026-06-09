@@ -33,13 +33,13 @@ export default async function FounderPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/20 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full p-8 md:p-16">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <h1 className="text-display-lg md:text-display-xl font-display text-white mb-4">
               {founder.fullName}
             </h1>
             <div className="flex flex-wrap gap-3">
               {founder.credentials?.map((c: string, i: number) => (
-                <span key={i} className="bg-brand-lightBlue text-brand-navy px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+                <span key={i} className="bg-brand-lightBlue text-brand-navy px-8 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
                   {c}
                 </span>
               ))}
@@ -50,7 +50,7 @@ export default async function FounderPage() {
 
       {/* Bio Section */}
       <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             <div className="lg:col-span-8">
               <SectionLabel className="mb-6">About the Founder</SectionLabel>
@@ -96,3 +96,4 @@ export default async function FounderPage() {
     </div>
   )
 }
+

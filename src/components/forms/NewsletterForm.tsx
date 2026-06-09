@@ -61,7 +61,7 @@ export default function NewsletterForm({ variant = 'inline' }: NewsletterFormPro
               {...register('email')}
               type="email"
               placeholder="Your email address"
-              className="w-full bg-white text-ink px-6 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-lightBlue transition-all placeholder:text-ink/30"
+              className="w-full bg-white text-ink px-8 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-lightBlue transition-all placeholder:text-ink/30"
             />
             {errors.email && (
               <p className="mt-2 ml-4 text-xs text-red-300 font-body">{errors.email.message}</p>
@@ -79,3 +79,4 @@ export default function NewsletterForm({ variant = 'inline' }: NewsletterFormPro
     </div>
   )
 }
+

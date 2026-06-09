@@ -12,7 +12,7 @@ export default function NewsletterBanner({ data }: NewsletterBannerProps) {
       <div className="absolute top-0 left-0 w-64 h-64 bg-brand-lightBlue/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-cyan/10 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl" />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-8 relative z-10 text-center">
         <h2 className="text-display-sm md:text-display-md font-display text-white mb-4">
           {data?.newsletterHeadline || "Get dental tips straight to your inbox."}
         </h2>
@@ -26,3 +26,4 @@ export default function NewsletterBanner({ data }: NewsletterBannerProps) {
     </section>
   )
 }
+

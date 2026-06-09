@@ -16,7 +16,7 @@ export default async function ImpactPage() {
 
   return (
     <div className="pt-32 pb-24 bg-white min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-8">
         <div className="max-w-3xl mb-16 space-y-4">
           <SectionLabel>Our Impact</SectionLabel>
           <h1 className="text-display-md md:text-display-lg font-display text-brand-navy">
@@ -57,3 +57,4 @@ export default async function ImpactPage() {
     </div>
   )
 }
+

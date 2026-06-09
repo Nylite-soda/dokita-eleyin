@@ -18,3 +18,4 @@ export default function ServiceCard({ title, desc, icon }: ServiceCardProps) {
     </div>
   )
 }
+

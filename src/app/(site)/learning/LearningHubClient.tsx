@@ -47,3 +47,4 @@ export default function LearningHubClient({ articles, categories }: LearningHubC
     </>
   )
 }
+

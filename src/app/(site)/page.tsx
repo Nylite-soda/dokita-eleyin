@@ -3,7 +3,6 @@ import { client } from '@/lib/sanity.client'
 import { homepageQuery, impactPageQuery } from '@/lib/sanity.queries'
 import Hero from '@/components/home/Hero'
 import WhyWeExist from '@/components/home/WhyWeExist'
-import ImpactTeaser from '@/components/home/ImpactTeaser'
 import LatestArticles from '@/components/home/LatestArticles'
 import SocialFeed from '@/components/home/SocialFeed'
 import NewsletterBanner from '@/components/home/NewsletterBanner'
@@ -20,10 +19,10 @@ export default async function HomePage() {
     <div className="flex flex-col">
       <Hero data={data} stats={impactData?.stats} />
       <WhyWeExist data={data} />
-      <ImpactTeaser stats={impactData?.stats} />
       <LatestArticles articles={data?.featuredArticles} />
       <SocialFeed data={data} />
       <NewsletterBanner data={data} />
     </div>
   )
 }
+

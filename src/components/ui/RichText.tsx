@@ -63,3 +63,4 @@ export default function RichText({ value, className }: RichTextProps) {
     </div>
   )
 }
+

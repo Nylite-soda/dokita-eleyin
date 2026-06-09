@@ -54,3 +54,4 @@ export default function AnimatedCounter({ value, duration = 1500 }: AnimatedCoun
     </span>
   )
 }
+

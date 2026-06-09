@@ -19,7 +19,7 @@ export default function SocialFeed({ data }: SocialFeedProps) {
         </svg>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="max-w-4xl mx-auto px-8 sm:px-8 lg:px-12 text-center">
         <div className="space-y-4 mb-12">
           <SectionLabel>Follow Along</SectionLabel>
           <h2 className="text-display-md font-display text-brand-navy">Join our community</h2>
@@ -64,3 +64,4 @@ export default function SocialFeed({ data }: SocialFeedProps) {
     </section>
   )
 }
+

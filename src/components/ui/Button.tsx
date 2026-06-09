@@ -20,8 +20,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     const sizes = {
-      sm: 'px-4 py-1.5 text-sm',
-      md: 'px-6 py-2.5 text-base',
+      sm: 'px-8 py-1.5 text-sm',
+      md: 'px-8 py-2.5 text-base',
       lg: 'px-8 py-3.5 text-lg',
     }
 
@@ -43,3 +43,4 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button'
 
 export { Button }
+
