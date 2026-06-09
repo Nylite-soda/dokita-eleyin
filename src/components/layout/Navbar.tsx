@@ -114,7 +114,7 @@ export default function Navbar() {
 function NavBrand({ theme, isScrolled }: { theme: 'light' | 'dark', isScrolled: boolean }) {
   return (
     <Link href="/" className="relative z-50 flex items-center transition-transform hover:scale-[1.02] active:scale-[0.98]">
-      <div className="h-9 md:h-11 w-auto relative">
+      <div className="h-7 md:h-9 w-auto relative">
         <img 
           src={theme === 'dark' ? "/logos/logo-horizontal-white-tagline.svg" : "/logos/logo-horizontal-color.svg"} 
           alt="Dókítà Eléyín" 
@@ -159,14 +159,22 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean, onClose: () => void 
       exit={{ opacity: 0 }}
       className="fixed inset-0 bg-brand-navy z-[90] lg:hidden overflow-hidden"
     >
+      {/* Close Button Inside Menu */}
+      <button 
+        onClick={onClose}
+        className="absolute top-8 right-6 text-white/70 hover:text-white p-2 z-[100]"
+      >
+        <IconX size={32} />
+      </button>
+
       {/* Background patterns */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-lightBlue rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-brand-cyan rounded-full blur-[120px]" />
       </div>
 
-      <div className="h-full flex flex-col px-8 pt-32 pb-12 relative z-10">
-        <div className="flex flex-col space-y-4">
+      <div className="h-full flex flex-col px-8 pt-20 pb-12 relative z-10">
+        <div className="flex flex-col space-y-2">
           {NAV_LINKS.map((link, i) => (
             <motion.div
               key={link.href}
@@ -176,12 +184,12 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean, onClose: () => void 
             >
               <Link 
                 href={link.href}
-                className="flex items-center justify-between group py-4 border-b border-white/10"
+                className="flex items-center justify-between group py-3 border-b border-white/5"
               >
-                <span className="text-3xl font-display font-bold text-white group-hover:text-brand-lightBlue transition-colors">
+                <span className="text-2xl font-display font-bold text-white group-hover:text-brand-lightBlue transition-colors">
                   {link.label}
                 </span>
-                <IconChevronRight className="text-white/30 group-hover:text-brand-lightBlue transform group-hover:translate-x-1 transition-all" size={32} />
+                <IconChevronRight className="text-white/20 group-hover:text-brand-lightBlue transform group-hover:translate-x-1 transition-all" size={24} />
               </Link>
             </motion.div>
           ))}
