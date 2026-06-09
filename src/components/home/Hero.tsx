@@ -27,18 +27,18 @@ export default function Hero({ data, stats }: HeroProps) {
             <div className="w-48 mx-auto lg:mx-0 mb-4">
                <img src="/logos/logo-stacked-white-tagline.svg" alt="Dókítà Eléyín" className="w-full" />
             </div>
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-[1.05] tracking-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.1] tracking-tight">
               {data?.heroHeadline || "Making oral health knowledge simple and accessible."}
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100/80 font-body max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-lg md:text-xl text-blue-100/80 font-body max-w-2xl mx-auto lg:mx-0 leading-relaxed">
               {data?.heroSubheadline || "We bridge the gap in dental education through community-led initiatives and simple, actionable guidance."}
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
-              <Button variant="secondary" size="lg" className="px-10 py-6 text-xl" onClick={() => window.location.href = data?.heroPrimaryCTA?.link || '/consultation'}>
+              <Button variant="secondary" size="lg" className="px-8 py-4" onClick={() => window.location.href = data?.heroPrimaryCTA?.link || '/consultation'}>
                 {data?.heroPrimaryCTA?.label || "Book a Consultation"}
               </Button>
-              <Button variant="ghost" size="lg" className="px-10 py-6 text-xl" onClick={() => window.location.href = data?.heroSecondaryCTA?.link || '/about'}>
+              <Button variant="ghost" size="lg" className="px-8 py-4" onClick={() => window.location.href = data?.heroSecondaryCTA?.link || '/about'}>
                 {data?.heroSecondaryCTA?.label || "Learn About Us"}
               </Button>
             </div>
