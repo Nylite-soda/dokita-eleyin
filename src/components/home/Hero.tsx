@@ -13,7 +13,7 @@ export default function Hero({ data, stats }: HeroProps) {
   console.log('Hero Image Debug:', data?.heroImage)
 
   return (
-    <section className="relative min-h-[90vh] flex items-center bg-brand-darkBlue text-white overflow-hidden pt-20">
+    <section className="relative min-h-[90vh] flex items-center bg-brand-darkBlue text-white overflow-hidden pt-32 pb-20">
       {/* Background Symbol Overlay */}
       <div className="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 opacity-10 pointer-events-none">
         <img 
@@ -59,14 +59,16 @@ export default function Hero({ data, stats }: HeroProps) {
           </div>
           
           <div className="lg:col-span-5 hidden lg:block">
-            <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden border-8 border-white/5 relative shadow-2xl">
-              {data?.heroImage?.asset ? (
-                <SanityImage asset={data.heroImage} fill alt="Hero image" />
-              ) : (
-                <div className="w-full h-full bg-brand-navy/30 flex items-center justify-center text-white/10">
-                   <img src="/logos/icon-symbol-white.svg" alt="" className="w-32 opacity-20" />
-                </div>
-              )}
+            <div className="py-12 flex items-center justify-center">
+              <div className="aspect-[4/5] w-full max-h-[60vh] rounded-[2.5rem] overflow-hidden border-8 border-white/5 relative shadow-2xl">
+                {data?.heroImage?.asset ? (
+                  <SanityImage asset={data.heroImage} fill alt="Hero image" />
+                ) : (
+                  <div className="w-full h-full bg-brand-navy/30 flex items-center justify-center text-white/10">
+                    <img src="/logos/icon-symbol-white.svg" alt="" className="w-32 opacity-20" />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
