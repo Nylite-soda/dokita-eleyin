@@ -1,7 +1,11 @@
 // src/components/home/NewsletterBanner.tsx
 import NewsletterForm from '@/components/forms/NewsletterForm'
 
-export default function NewsletterBanner() {
+interface NewsletterBannerProps {
+  data?: any
+}
+
+export default function NewsletterBanner({ data }: NewsletterBannerProps) {
   return (
     <section className="py-20 bg-brand-darkBlue relative overflow-hidden">
       {/* Subtle background decoration */}
@@ -10,10 +14,10 @@ export default function NewsletterBanner() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <h2 className="text-display-sm md:text-display-md font-display text-white mb-4">
-          Get dental tips straight to your inbox.
+          {data?.newsletterHeadline || "Get dental tips straight to your inbox."}
         </h2>
         <p className="text-lg text-blue-100/70 font-body mb-10 max-w-xl mx-auto">
-          Join our community of 2,000+ subscribers and receive simple, actionable oral health advice once a month.
+          {data?.newsletterSubcopy || "Join our community of 2,000+ subscribers and receive simple, actionable oral health advice once a month."}
         </p>
         <div className="flex justify-center">
           <NewsletterForm />

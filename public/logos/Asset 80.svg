@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1217.13 1010.35">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #73f8ff;
+      }
+
+      .cls-2, .cls-4 {
+        font-family: VisbyCF-Bold, 'Visby CF';
+        font-size: 49px;
+        font-weight: 700;
+      }
+
+      .cls-5 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-6 {
+        letter-spacing: 0em;
+      }
+
+      .cls-3, .cls-7, .cls-8 {
+        stroke-width: 0px;
+      }
+
+      .cls-7, .cls-4 {
+        fill: #2e5ca9;
+      }
+
+      .cls-8 {
+        fill: #55c9f4;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <rect class="cls-8" width="379.92" height="1010.35" rx="57.1" ry="57.1"/>
+      <text class="cls-4" transform="translate(78.56 949.08)"><tspan x="0" y="0">55c9f4</tspan></text>
+      <rect class="cls-7" x="418.6" width="379.92" height="1010.35" rx="57.1" ry="57.1"/>
+      <text class="cls-2" transform="translate(497.16 949.08)"><tspan x="0" y="0">2e5</tspan><tspan class="cls-5" x="82.37" y="0">c</tspan><tspan x="108.73" y="0">a9</tspan></text>
+      <rect class="cls-3" x="837.21" width="379.92" height="1010.35" rx="57.1" ry="57.1"/>
+      <text class="cls-4" transform="translate(915.76 949.08)"><tspan x="0" y="0">73f8ff</tspan></text>
+      <text class="cls-4" transform="translate(78.56 155.41)"><tspan x="0" y="0">Primary</tspan><tspan class="cls-1" x="0" y="58.8">C</tspan><tspan class="cls-6" x="34.54" y="58.8">olou</tspan><tspan class="cls-1" x="133.92" y="58.8">r</tspan></text>
+      <text class="cls-2" transform="translate(497.16 155.41)"><tspan x="0" y="0">Primary</tspan><tspan class="cls-1" x="0" y="58.8">C</tspan><tspan class="cls-6" x="34.54" y="58.8">olou</tspan><tspan class="cls-1" x="133.92" y="58.8">r</tspan></text>
+      <text class="cls-4" transform="translate(915.76 155.41)"><tspan x="0" y="0">Se</tspan><tspan class="cls-5" x="54.73" y="0">c</tspan><tspan x="81.09" y="0">ondary</tspan><tspan class="cls-1" x="0" y="58.8">C</tspan><tspan class="cls-6" x="34.54" y="58.8">olou</tspan><tspan class="cls-1" x="133.92" y="58.8">r</tspan></text>
+    </g>
+  </g>
+</svg>

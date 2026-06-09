@@ -38,8 +38,8 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         
         <div className="pt-4 flex items-center justify-between border-t border-surface-card">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-brand-lightBlue/10 flex items-center justify-center p-1">
-              <img src="/logos/icon-symbol-color.svg" alt="" className="w-full h-full" />
+            <div className="w-8 h-8 relative">
+              <img src="/logos/icon-symbol-color.svg" alt="Dr. Ibukun" className="w-full h-full object-contain" />
             </div>
             <span className="text-xs font-semibold text-brand-navy">Dr. Ibukun</span>
           </div>

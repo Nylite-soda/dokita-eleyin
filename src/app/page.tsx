@@ -19,11 +19,11 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col">
       <Hero data={data} stats={impactData?.stats} />
-      <WhyWeExist />
+      <WhyWeExist data={data} />
       <ImpactTeaser stats={impactData?.stats} />
       <LatestArticles articles={data?.featuredArticles} />
       <SocialFeed data={data} />
-      <NewsletterBanner />
+      <NewsletterBanner data={data} />
     </div>
   )
 }

@@ -4,7 +4,6 @@ import { IconBrandInstagram, IconBrandTiktok, IconBrandYoutube, IconBrandLinkedi
 import { client } from '@/lib/sanity.client'
 import { siteSettingsQuery } from '@/lib/sanity.queries'
 import NewsletterForm from '@/components/forms/NewsletterForm'
-import SanityImage from '@/components/ui/SanityImage'
 
 export default async function Footer() {
   const settings = await client.fetch(siteSettingsQuery)
@@ -17,10 +16,9 @@ export default async function Footer() {
           {/* Column 1: Brand */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 relative">
-                <img src="/logos/icon-symbol-white.svg" alt="" className="w-full h-full opacity-80" />
+              <div className="h-12 w-auto relative">
+                <img src="/logos/logo-horizontal-white-tagline.svg" alt="Dókítà Eléyín" className="h-full w-auto opacity-90" />
               </div>
-              <div className="font-display text-2xl font-bold">{settings?.siteName || 'Dókítà Eléyín'}</div>
             </div>
             <p className="text-blue-100/80 font-body text-sm leading-relaxed max-w-xs">
               {settings?.footerDescription || 'Making oral health knowledge simple, accessible, and actionable for healthier communities.'}

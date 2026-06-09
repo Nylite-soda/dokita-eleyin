@@ -40,8 +40,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-light-blue: #55C9F4;
-  --color-brand-dark-blue: #2E5CA9;
+  --color-brand-lightBlue: #55C9F4;
+  --color-brand-darkBlue: #2E5CA9;
   --color-brand-cyan: #73F8FF;
   --color-brand-navy: #1A3666;
   

@@ -2,7 +2,11 @@
 import SectionLabel from '@/components/ui/SectionLabel'
 import { IconBook, IconShieldCheck, IconHeart } from '@tabler/icons-react'
 
-export default function WhyWeExist() {
+interface WhyWeExistProps {
+  data?: any
+}
+
+export default function WhyWeExist({ data }: WhyWeExistProps) {
   const values = [
     {
       icon: <IconBook className="w-8 h-8 text-brand-lightBlue" />,
@@ -28,10 +32,10 @@ export default function WhyWeExist() {
           <div className="space-y-6">
             <SectionLabel>Our Purpose</SectionLabel>
             <h2 className="text-display-md font-display text-brand-navy leading-tight">
-              Making oral health knowledge simple, accessible, and actionable.
+              {data?.whyWeExistTitle || "Making oral health knowledge simple, accessible, and actionable."}
             </h2>
             <p className="text-lg text-ink/70 font-body leading-relaxed max-w-xl">
-              We believe that every individual deserves the knowledge and tools to maintain a healthy smile. Through community engagement and clear education, we're building a future where oral health is a priority, not an afterthought.
+              {data?.whyWeExistBody || "We believe that every individual deserves the knowledge and tools to maintain a healthy smile. Through community engagement and clear education, we're building a future where oral health is a priority, not an afterthought."}
             </p>
           </div>
 

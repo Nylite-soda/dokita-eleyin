@@ -24,6 +24,9 @@ export default function Hero({ data, stats }: HeroProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-8">
+            <div className="w-48 mb-4">
+               <img src="/logos/logo-stacked-white-tagline.svg" alt="Dókítà Eléyín" className="w-full" />
+            </div>
             <h1 className="text-display-lg md:text-display-xl font-display leading-[1.1]">
               {data?.heroHeadline || "Making oral health knowledge simple and accessible."}
             </h1>
@@ -54,12 +57,12 @@ export default function Hero({ data, stats }: HeroProps) {
           </div>
           
           <div className="lg:col-span-5 hidden lg:block">
-            <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden border-8 border-white/5 relative">
+            <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden border-8 border-white/5 relative shadow-2xl">
               {data?.heroImage ? (
                 <SanityImage asset={data.heroImage} fill alt="Hero image" />
               ) : (
-                <div className="w-full h-full bg-surface-card animate-pulse flex items-center justify-center text-brand-darkBlue/20">
-                   [Hero Image]
+                <div className="w-full h-full bg-brand-navy/30 flex items-center justify-center text-white/10">
+                   <img src="/logos/icon-symbol-white.svg" alt="" className="w-32 opacity-20" />
                 </div>
               )}
             </div>

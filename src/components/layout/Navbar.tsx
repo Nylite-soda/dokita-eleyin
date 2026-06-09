@@ -42,19 +42,17 @@ export default function Navbar() {
     )}>
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center gap-3 group relative z-50">
-          <div className="w-10 h-10 relative transform group-hover:rotate-12 transition-transform">
+          <div className="h-10 w-auto relative transform group-hover:rotate-2 transition-transform">
+            {/* 
+              logo-horizontal-color.svg (76) - Default for light bg
+              logo-horizontal-white-tagline.svg (74) - Dark/transparent bg
+            */}
             <img 
-              src={isScrolled || !isHome || isMobileMenuOpen ? "/logos/icon-symbol-color.svg" : "/logos/icon-symbol-white.svg"} 
-              alt="Logo" 
-              className="w-full h-full" 
+              src={isScrolled || !isHome || isMobileMenuOpen ? "/logos/logo-horizontal-color.svg" : "/logos/logo-horizontal-white-tagline.svg"} 
+              alt="Dókítà Eléyín Logo" 
+              className="h-full w-auto" 
             />
           </div>
-          <span className={cn(
-            "font-display text-2xl font-bold transition-colors",
-            isScrolled || !isHome || isMobileMenuOpen ? "text-brand-navy" : "text-white"
-          )}>
-            Dókítà Eléyín
-          </span>
         </Link>
 
         {/* Desktop Links */}
@@ -65,7 +63,7 @@ export default function Navbar() {
               href={link.href} 
               className={cn(
                 "transition-all hover:text-brand-lightBlue relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-lightBlue after:transition-all hover:after:w-full",
-                isScrolled || !isHome ? "text-ink/70" : "text-white/80"
+                isScrolled || !isHome ? "text-ink/70" : "text-white/90"
               )}
             >
               {link.label}

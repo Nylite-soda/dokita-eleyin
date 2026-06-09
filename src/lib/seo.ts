@@ -46,5 +46,6 @@ export async function getSharedMetadata(): Promise<Metadata> {
       icon: '/favicon-32x32.png',
       apple: '/apple-touch-icon.png',
     },
+    manifest: '/site.webmanifest',
   }
 }
