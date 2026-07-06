@@ -1,15 +1,22 @@
 // src/app/partnerships/page.tsx
+import { Metadata } from 'next'
 import { client } from '@/lib/sanity.client'
 import { partnersQuery } from '@/lib/sanity.queries'
 import SectionLabel from '@/components/ui/SectionLabel'
 import PartnershipForm from '@/components/forms/PartnershipForm'
 import SanityImage from '@/components/ui/SanityImage'
 import { IconSchool, IconHeartHandshake, IconBuildingCommunity, IconCertificate, IconVolume, IconDeviceLaptop } from '@tabler/icons-react'
+import { Partner } from '@/types'
+
+export const metadata: Metadata = {
+  title: 'Partner With Us | Dókítà Eléyín',
+  description: 'Collaborate with Dókítà Eléyín to bring oral health education to schools, communities, and organizations.',
+}
 
 export const revalidate = 60
 
 export default async function PartnershipsPage() {
-  const partners = await client.fetch(partnersQuery)
+  const partners: Partner[] = await client.fetch(partnersQuery)
 
   const opportunities = [
     { title: 'School Programs', icon: <IconSchool />, desc: 'Partner with us to bring dental education to your students.' },
@@ -38,7 +45,7 @@ export default async function PartnershipsPage() {
           <div className="mb-24 py-12 border-y border-brand-lightBlue/10">
             <h3 className="text-center font-display font-bold text-brand-navy/40 uppercase tracking-widest text-sm mb-12">Trusted By</h3>
             <div className="flex flex-wrap justify-center gap-12 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all">
-              {partners.map((p: any) => (
+              {partners.map((p: Partner) => (
                 <div key={p._id} className="h-12 w-32 relative">
                   <SanityImage asset={p.logo} alt={p.name} fill className="object-contain" />
                 </div>

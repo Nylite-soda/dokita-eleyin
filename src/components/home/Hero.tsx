@@ -1,13 +1,15 @@
 // src/components/home/Hero.tsx
 'use client'
+import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
 import SanityImage from '@/components/ui/SanityImage'
 import SectionLabel from '@/components/ui/SectionLabel'
+import { ImpactStat } from '@/types'
 
 interface HeroProps {
   data: any
-  stats: any[]
+  stats: ImpactStat[]
 }
 
 export default function Hero({ data, stats }: HeroProps) {
@@ -33,12 +35,16 @@ export default function Hero({ data, stats }: HeroProps) {
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
-              <Button variant="secondary" size="lg" className="px-8 py-4" onClick={() => window.location.href = data?.heroPrimaryCTA?.link || '/consultation'}>
-                {data?.heroPrimaryCTA?.label || "Book a Consultation"}
-              </Button>
-              <Button variant="ghost" size="lg" className="px-8 py-4" onClick={() => window.location.href = data?.heroSecondaryCTA?.link || '/about'}>
-                {data?.heroSecondaryCTA?.label || "Learn About Us"}
-              </Button>
+              <Link href={data?.heroPrimaryCTA?.link || '/consultation'}>
+                <Button variant="secondary" size="lg" className="px-8 py-4">
+                  {data?.heroPrimaryCTA?.label || "Book a Consultation"}
+                </Button>
+              </Link>
+              <Link href={data?.heroSecondaryCTA?.link || '/about'}>
+                <Button variant="ghost" size="lg" className="px-8 py-4">
+                  {data?.heroSecondaryCTA?.label || "Learn About Us"}
+                </Button>
+              </Link>
             </div>
 
             {/* Social Proof Stats */}

@@ -1,9 +1,19 @@
 // src/app/contact/page.tsx
+import { Metadata } from 'next'
 import SectionLabel from '@/components/ui/SectionLabel'
 import ContactForm from '@/components/forms/ContactForm'
 import { IconMail, IconPhone, IconMapPin, IconBrandInstagram, IconBrandTiktok, IconBrandYoutube } from '@tabler/icons-react'
+import { client } from '@/lib/sanity.client'
+import { siteSettingsQuery } from '@/lib/sanity.queries'
 
-export default function ContactPage() {
+export const metadata: Metadata = {
+  title: 'Contact | Dókítà Eléyín',
+  description: 'Get in touch with the Dókítà Eléyín team for enquiries, media requests, partnerships, or speaking engagements.',
+}
+
+export default async function ContactPage() {
+  const settings = await client.fetch(siteSettingsQuery)
+
   return (
     <div className="pt-32 pb-24 bg-white min-h-screen">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
@@ -28,7 +38,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="font-display font-bold text-brand-navy">Email Us</h4>
-                  <p className="text-ink/60 font-body">hello@dokitaeleyin.com</p>
+                  <p className="text-ink/60 font-body">{settings?.contactEmail || 'hello@dokitaeleyin.com'}</p>
                 </div>
               </div>
 
@@ -38,7 +48,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="font-display font-bold text-brand-navy">Call/WhatsApp</h4>
-                  <p className="text-ink/60 font-body">+234 (0) 812 345 6789</p>
+                  <p className="text-ink/60 font-body">{settings?.contactPhone || '+234 (0) 812 345 6789'}</p>
                 </div>
               </div>
 
@@ -48,7 +58,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="font-display font-bold text-brand-navy">Our Office</h4>
-                  <p className="text-ink/60 font-body">Lagos, Nigeria</p>
+                  <p className="text-ink/60 font-body">{settings?.address || 'Lagos, Nigeria'}</p>
                 </div>
               </div>
             </div>

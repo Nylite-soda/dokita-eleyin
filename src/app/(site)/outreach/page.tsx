@@ -1,4 +1,5 @@
 // src/app/outreach/page.tsx
+import { Metadata } from 'next'
 import { client } from '@/lib/sanity.client'
 import { outreachEventsQuery } from '@/lib/sanity.queries'
 import SectionLabel from '@/components/ui/SectionLabel'
@@ -6,11 +7,17 @@ import { format } from 'date-fns'
 import SanityImage from '@/components/ui/SanityImage'
 import { IconMapPin, IconCalendar, IconUsers, IconTruckDelivery } from '@tabler/icons-react'
 import EmptyState from '@/components/ui/EmptyState'
+import { OutreachEvent } from '@/types'
+
+export const metadata: Metadata = {
+  title: 'Outreach | Dókítà Eléyín',
+  description: 'Dókítà Eléyín dental outreach events in schools, churches, and communities across Nigeria.',
+}
 
 export const revalidate = 60
 
 export default async function OutreachPage() {
-  const events = await client.fetch(outreachEventsQuery)
+  const events: OutreachEvent[] = await client.fetch(outreachEventsQuery)
 
   return (
     <div className="pt-32 pb-24 bg-white min-h-screen">
@@ -33,7 +40,7 @@ export default async function OutreachPage() {
           />
         ) : (
           <div className="space-y-12">
-            {events.map((event: any) => (
+            {events.map((event: OutreachEvent) => (
               <div key={event._id} className="bg-surface-soft rounded-[2.5rem] overflow-hidden flex flex-col lg:flex-row border border-brand-lightBlue/10 hover:border-brand-lightBlue/30 transition-all">
                 <div className="lg:w-1/3 h-64 lg:h-auto relative">
                   {event.images?.[0] ? (
@@ -48,7 +55,7 @@ export default async function OutreachPage() {
                 <div className="p-8 lg:p-12 lg:w-2/3 flex flex-col justify-center space-y-6">
                   <div className="flex flex-wrap gap-3">
                     <span className="bg-brand-lightBlue text-brand-navy px-8 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
-                      {event.venueType?.replace('_', ' ')}
+                      {event.venueType?.replace('_', ' ') || 'Outreach'}
                     </span>
                     <div className="flex items-center gap-1 text-ink/40 text-sm font-body">
                       <IconCalendar size={16} />

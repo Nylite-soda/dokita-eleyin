@@ -88,6 +88,23 @@ export default function PartnershipForm() {
             </div>
           </div>
 
+          <div className="space-y-2">
+            <label className="text-sm font-bold font-display text-brand-navy">Organization Type</label>
+            <select 
+              {...register('orgType')} 
+              className="w-full bg-surface-soft border-none rounded-2xl px-8 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm appearance-none"
+            >
+              <option value="">Select organization type</option>
+              <option value="school">School</option>
+              <option value="ngo">NGO</option>
+              <option value="corporate">Corporate Organization</option>
+              <option value="healthcare">Healthcare Institution</option>
+              <option value="government">Government</option>
+              <option value="other">Other</option>
+            </select>
+            {errors.orgType && <p className="text-xs text-red-500">{errors.orgType.message}</p>}
+          </div>
+
           <div className="space-y-4">
             <label className="text-sm font-bold font-display text-brand-navy">Areas of Interest</label>
             <div className="grid grid-cols-2 gap-4">

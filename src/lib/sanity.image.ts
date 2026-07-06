@@ -1,5 +1,5 @@
 // src/lib/sanity.image.ts
-import createImageUrlBuilder from '@sanity/image-url'
+import { createImageUrlBuilder } from '@sanity/image-url'
 import { client } from './sanity.client'
 
 const imageBuilder = createImageUrlBuilder(client)

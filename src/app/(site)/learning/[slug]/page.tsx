@@ -18,17 +18,17 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const article = await client.fetch(articleBySlugQuery, { slug: params.slug })
   if (!article) return {}
 
-  const ogImage = article.featuredImage 
-    ? urlForImage(article.featuredImage).width(1200).height(630).url()
-    : undefined
+  const images = article.featuredImage 
+    ? [urlForImage(article.featuredImage).width(1200).height(630).url()]
+    : []
 
   return {
-    title: article.seoTitle || article.title,
+    title: article.seoTitle || `${article.title} | Dókítà Eléyín`,
     description: article.seoDescription || article.excerpt,
     openGraph: {
       title: article.title,
       description: article.excerpt,
-      images: ogImage ? [ogImage] : [],
+      images,
       type: 'article',
       publishedTime: article.publishedAt,
     },

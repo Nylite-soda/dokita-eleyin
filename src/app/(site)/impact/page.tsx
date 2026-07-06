@@ -1,4 +1,5 @@
 // src/app/impact/page.tsx
+import { Metadata } from 'next'
 import { client } from '@/lib/sanity.client'
 import { impactPageQuery } from '@/lib/sanity.queries'
 import SectionLabel from '@/components/ui/SectionLabel'
@@ -6,6 +7,11 @@ import StatsDashboard from '@/components/impact/StatsDashboard'
 import ImpactStoryCard from '@/components/impact/ImpactStoryCard'
 import EmptyState from '@/components/ui/EmptyState'
 import { IconHeart } from '@tabler/icons-react'
+
+export const metadata: Metadata = {
+  title: 'Community Impact | Dókítà Eléyín',
+  description: 'See the real-world impact of Dókítà Eléyín — schools engaged, communities reached, and lives improved through oral health education.',
+}
 
 export const revalidate = 60
 

@@ -1,7 +1,13 @@
 // src/app/consultation/page.tsx
+import { Metadata } from 'next'
 import SectionLabel from '@/components/ui/SectionLabel'
 import ServiceCard from '@/components/consultation/ServiceCard'
 import BookingEmbed from '@/components/consultation/BookingEmbed'
+
+export const metadata: Metadata = {
+  title: 'Book a Consultation | Dókítà Eléyín',
+  description: 'Schedule a private oral health consultation with Dr. Ibukun — evidence-based guidance for you and your family.',
+}
 import { 
   IconStethoscope, 
   IconHeart, 

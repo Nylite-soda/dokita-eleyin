@@ -2,9 +2,10 @@
 import Link from 'next/link'
 import SectionLabel from '@/components/ui/SectionLabel'
 import ArticleCard from '@/components/learning/ArticleCard'
+import { Article } from '@/types'
 
 interface LatestArticlesProps {
-  articles: any[]
+  articles: Article[]
 }
 
 export default function LatestArticles({ articles }: LatestArticlesProps) {

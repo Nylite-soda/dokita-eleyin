@@ -1,4 +1,5 @@
 // src/app/programs/page.tsx
+import { Metadata } from 'next'
 import { client } from '@/lib/sanity.client'
 import { programsQuery } from '@/lib/sanity.queries'
 import SectionLabel from '@/components/ui/SectionLabel'
@@ -6,11 +7,17 @@ import RichText from '@/components/ui/RichText'
 import SanityImage from '@/components/ui/SanityImage'
 import { IconCircleCheck, IconCalendar } from '@tabler/icons-react'
 import EmptyState from '@/components/ui/EmptyState'
+import { Program } from '@/types'
+
+export const metadata: Metadata = {
+  title: 'Programs | Dókítà Eléyín',
+  description: 'Explore our oral health programs — school initiatives, community outreach, and digital education campaigns.',
+}
 
 export const revalidate = 60
 
 export default async function ProgramsPage() {
-  const programs = await client.fetch(programsQuery)
+  const programs: Program[] = await client.fetch(programsQuery)
 
   const programTypes = [
     { id: 'school', label: 'School Initiatives' },
@@ -41,7 +48,7 @@ export default async function ProgramsPage() {
         ) : (
           <div className="space-y-32">
             {programTypes.map((type) => {
-              const filteredPrograms = programs.filter((p: any) => p.type === type.id)
+              const filteredPrograms = programs.filter((p: Program) => p.type === type.id)
               if (filteredPrograms.length === 0) return null
 
               return (

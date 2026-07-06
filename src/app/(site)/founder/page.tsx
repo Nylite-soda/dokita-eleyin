@@ -1,4 +1,5 @@
 // src/app/founder/page.tsx
+import { Metadata } from 'next'
 import { client } from '@/lib/sanity.client'
 import { founderQuery } from '@/lib/sanity.queries'
 import SectionLabel from '@/components/ui/SectionLabel'
@@ -6,6 +7,11 @@ import RichText from '@/components/ui/RichText'
 import SanityImage from '@/components/ui/SanityImage'
 import { IconBrandInstagram, IconBrandTiktok, IconBrandLinkedin, IconBrandTwitter } from '@tabler/icons-react'
 import { Founder } from '@/types'
+
+export const metadata: Metadata = {
+  title: 'Meet the Founder | Dókítà Eléyín',
+  description: 'Dr. Adamaigbo Ibukunoluwa — Dental Surgeon, Public Health Professional, and founder of Dókítà Eléyín.',
+}
 
 export const revalidate = 60
 

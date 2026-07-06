@@ -2,9 +2,10 @@
 import Link from 'next/link'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
 import { IconUsers, IconSchool, IconChecklist, IconGift, IconDeviceMobile } from '@tabler/icons-react'
+import { ImpactStat } from '@/types'
 
 interface ImpactTeaserProps {
-  stats: any[]
+  stats: ImpactStat[]
 }
 
 const iconMap: Record<string, any> = {

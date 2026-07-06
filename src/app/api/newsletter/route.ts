@@ -1,34 +1,41 @@
 // src/app/api/newsletter/route.ts
 import { NextResponse } from 'next/server'
-import { sendEmail } from '@/lib/mail'
 
 export async function POST(req: Request) {
   try {
-    const { email } = await req.json()
+    const body = await req.json()
+    const { email } = body
 
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 })
+    if (!email || !email.includes('@')) {
+      return NextResponse.json({ error: 'Email is invalid or missing' }, { status: 400 })
     }
 
-    // This is where you'd call Brevo, Mailchimp, etc.
-    // For now, we'll send a welcome email via Zoho
-    await sendEmail({
-      to: email,
-      subject: 'Welcome to the Dókítà Eléyín Newsletter!',
-      html: `
-        <div style="font-family: sans-serif; padding: 20px; color: #1A1A2E; text-align: center;">
-          <h2 style="color: #2E5CA9;">You're in!</h2>
-          <p>Thank you for subscribing to our newsletter. You'll now receive monthly dental tips and community updates from Dr. Ibukun.</p>
-          <p>We're excited to have you with us!</p>
-          <br />
-          <p>Keep smiling,<br /><strong>Dókítà Eléyín Team</strong></p>
-        </div>
-      `,
+    const response = await fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': process.env.BREVO_API_KEY || '',
+      },
+      body: JSON.stringify({
+        email,
+        listIds: [Number(process.env.BREVO_LIST_ID)],
+        updateEnabled: true,
+      }),
     })
 
-    return NextResponse.json({ success: true })
+    if (response.status === 201 || response.status === 204) {
+      return NextResponse.json({ message: 'Subscribed successfully' }, { status: 200 })
+    }
+
+    const responseData = await response.json().catch(() => ({}))
+
+    if (responseData?.code === 'duplicate_parameter') {
+      return NextResponse.json({ message: 'Already subscribed' }, { status: 200 })
+    }
+
+    return NextResponse.json({ error: 'Failed to subscribe' }, { status: 500 })
   } catch (err) {
     console.error('Newsletter error:', err)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    return NextResponse.json({ error: 'Server error' }, { status: 500 })
   }
 }

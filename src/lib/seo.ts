@@ -16,6 +16,7 @@ export async function getSharedMetadata(): Promise<Metadata> {
     : '/og-default.jpg'
 
   return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
     title: {
       default: `${siteName} — ${siteTagline}`,
       template: `%s | ${siteName}`

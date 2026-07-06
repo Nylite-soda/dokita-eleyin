@@ -1,8 +1,14 @@
 // src/app/about/page.tsx
+import { Metadata } from 'next'
 import SectionLabel from '@/components/ui/SectionLabel'
 import { client } from '@/lib/sanity.client'
 import { siteSettingsQuery } from '@/lib/sanity.queries'
 import { IconTarget, IconEye, IconStars, IconMessageHeart, IconShieldHeart, IconUsers } from '@tabler/icons-react'
+
+export const metadata: Metadata = {
+  title: 'About Us | Dókítà Eléyín',
+  description: 'Learn about Dókítà Eléyín — a platform dedicated to oral health education, advocacy, and community impact across Nigeria and beyond.',
+}
 
 export const revalidate = 60
 
