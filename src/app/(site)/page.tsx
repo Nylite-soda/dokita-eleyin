@@ -22,7 +22,8 @@ export default async function HomePage() {
       <WhyWeExist data={data} />
       <ImpactTeaser stats={impactData?.stats} />
       <LatestArticles articles={data?.featuredArticles} />
-      <SocialFeed data={data} />
+      {/* TODO: Uncomment when Instagram/TikTok embed API is connected */}
+      {/* <SocialFeed data={data} /> */}
       <NewsletterBanner data={data} />
     </div>
   )

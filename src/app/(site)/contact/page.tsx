@@ -15,18 +15,18 @@ export default async function ContactPage() {
   const settings = await client.fetch(siteSettingsQuery)
 
   return (
-    <div className="pt-32 pb-24 bg-white min-h-screen">
+    <div className="pt-32 pb-16 bg-white min-h-screen">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
           {/* Left: Contact Info */}
           <div className="lg:col-span-5 space-y-12">
-            <div className="space-y-6">
-              <SectionLabel>Get in touch</SectionLabel>
-              <h1 className="text-display-md font-display text-brand-navy leading-tight">
+            <div>
+              <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Get in touch</span>
+              <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
                 We'd love to hear from you.
               </h1>
-              <p className="text-lg text-ink/60 font-body leading-relaxed">
+              <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
                 Have a question about oral health? Want to invite us to your school? Or just want to say hello? Drop us a message.
               </p>
             </div>

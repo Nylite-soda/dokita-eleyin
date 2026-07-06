@@ -67,7 +67,7 @@ export default async function Footer() {
           <div>
             <h4 className="font-display text-lg font-semibold mb-6 text-brand-lightBlue">Stay in the loop</h4>
             <p className="text-blue-100/80 font-body text-sm mb-6">Get dental tips straight to your inbox.</p>
-            <NewsletterForm variant="inline" />
+            <NewsletterForm variant="inline" placeholder="Your email" />
           </div>
         </div>
 

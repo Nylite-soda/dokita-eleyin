@@ -28,14 +28,14 @@ export default async function PartnershipsPage() {
   ]
 
   return (
-    <div className="pt-32 pb-24 bg-surface-soft min-h-screen">
+    <div className="pt-32 pb-16 bg-white min-h-screen">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="max-w-3xl mb-16 space-y-4">
-          <SectionLabel>Partner With Us</SectionLabel>
-          <h1 className="text-display-md md:text-display-lg font-display text-brand-navy leading-tight">
+        <div className="max-w-3xl mb-16">
+          <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Partner With Us</span>
+          <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
             Building a healthier future, together.
           </h1>
-          <p className="text-lg text-ink/60 font-body">
+          <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
             We believe in the power of collaboration. Whether you're a school, a corporation, or a fellow NGO, let's join forces to simplify oral health.
           </p>
         </div>
@@ -67,31 +67,46 @@ export default async function PartnershipsPage() {
           ))}
         </div>
 
-        {/* Form Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-6">
-            <h2 className="text-display-sm font-display text-brand-navy">Ready to collaborate?</h2>
-            <p className="text-lg text-ink/60 font-body leading-relaxed">
+      </div>
+
+      {/* Form Section */}
+      <section className="bg-surface-soft py-16 px-6">
+        <div className="text-center mb-12">
+          <h2 className="font-display text-3xl font-semibold text-ink mb-2">Partner With Us</h2>
+          <p className="text-base text-ink-muted">
+            Fill out the form and our team will get back to you within 48 hours.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
+          {/* Left Column */}
+          <div className="bg-white rounded-2xl border border-surface-card shadow-sm p-8">
+            <span className="text-brand-lightBlue text-sm font-semibold uppercase tracking-widest block mb-3">Ready to collaborate?</span>
+            <p className="text-base text-ink-muted leading-relaxed mb-8">
               Fill out the form and our team will get back to you within 48 hours to discuss how we can work together.
             </p>
-            <div className="pt-6 space-y-4">
-               <div className="flex items-center gap-3 text-brand-darkBlue font-bold font-body">
-                  <span className="w-8 h-8 rounded-full bg-brand-lightBlue/20 flex items-center justify-center text-xs">1</span>
-                  Initial Discovery Call
-               </div>
-               <div className="flex items-center gap-3 text-brand-darkBlue font-bold font-body">
-                  <span className="w-8 h-8 rounded-full bg-brand-lightBlue/20 flex items-center justify-center text-xs">2</span>
-                  Strategic Proposal
-               </div>
-               <div className="flex items-center gap-3 text-brand-darkBlue font-bold font-body">
-                  <span className="w-8 h-8 rounded-full bg-brand-lightBlue/20 flex items-center justify-center text-xs">3</span>
-                  Implementation & Impact
-               </div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 text-brand-darkBlue font-semibold font-body">
+                <span className="w-8 h-8 rounded-full bg-brand-lightBlue/10 text-brand-darkBlue font-bold flex items-center justify-center text-sm">1</span>
+                Initial Discovery Call
+              </div>
+              <div className="flex items-center gap-3 text-brand-darkBlue font-semibold font-body">
+                <span className="w-8 h-8 rounded-full bg-brand-lightBlue/10 text-brand-darkBlue font-bold flex items-center justify-center text-sm">2</span>
+                Strategic Proposal
+              </div>
+              <div className="flex items-center gap-3 text-brand-darkBlue font-semibold font-body">
+                <span className="w-8 h-8 rounded-full bg-brand-lightBlue/10 text-brand-darkBlue font-bold flex items-center justify-center text-sm">3</span>
+                Implementation & Impact
+              </div>
             </div>
           </div>
-          <PartnershipForm />
+
+          {/* Right Column */}
+          <div className="bg-white rounded-2xl border border-surface-card shadow-sm p-8">
+            <PartnershipForm />
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }

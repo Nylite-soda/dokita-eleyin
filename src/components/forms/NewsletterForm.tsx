@@ -14,9 +14,13 @@ type FormData = z.infer<typeof schema>
 
 interface NewsletterFormProps {
   variant?: 'inline' | 'stacked'
+  placeholder?: string
 }
 
-export default function NewsletterForm({ variant = 'inline' }: NewsletterFormProps) {
+export default function NewsletterForm({ 
+  variant = 'inline',
+  placeholder = 'Enter your email address'
+}: NewsletterFormProps) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
@@ -60,7 +64,7 @@ export default function NewsletterForm({ variant = 'inline' }: NewsletterFormPro
             <input
               {...register('email')}
               type="email"
-              placeholder="Your email address"
+              placeholder={placeholder}
               className="w-full bg-white text-ink px-8 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-lightBlue transition-all placeholder:text-ink/30"
             />
             {errors.email && (

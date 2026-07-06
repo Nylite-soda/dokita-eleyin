@@ -20,14 +20,14 @@ export default async function OutreachPage() {
   const events: OutreachEvent[] = await client.fetch(outreachEventsQuery)
 
   return (
-    <div className="pt-32 pb-24 bg-white min-h-screen">
+    <div className="pt-32 pb-16 bg-white min-h-screen">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="max-w-3xl mb-16 space-y-4">
-          <SectionLabel>Outreach Events</SectionLabel>
-          <h1 className="text-display-md md:text-display-lg font-display text-brand-navy leading-tight">
+        <div className="max-w-3xl mb-16">
+          <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Outreach Events</span>
+          <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
             Our journey across communities.
           </h1>
-          <p className="text-lg text-ink/60 font-body">
+          <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
             From rural schools to urban community centers, we're on the move to ensure no one is left behind in oral health education.
           </p>
         </div>

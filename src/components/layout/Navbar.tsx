@@ -9,6 +9,7 @@ import { IconMenu2, IconX, IconBrandInstagram, IconBrandTiktok, IconChevronRight
 import { cn } from '@/lib/utils'
 
 const NAV_LINKS = [
+  { label: 'Home', href: '/' },
   { label: 'Learning Hub', href: '/learning' },
   { label: 'Programs', href: '/programs' },
   { label: 'Outreach', href: '/outreach' },
@@ -22,8 +23,7 @@ export default function Navbar() {
   const pathname = usePathname()
   const isHome = pathname === '/'
 
-  // Add Home to links if not on homepage
-  const dynamicLinks = isHome ? NAV_LINKS : [{ label: 'Home', href: '/' }, ...NAV_LINKS]
+  const dynamicLinks = NAV_LINKS
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20)

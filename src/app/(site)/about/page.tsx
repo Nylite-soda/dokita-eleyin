@@ -16,10 +16,10 @@ export default async function AboutPage() {
   const settings = await client.fetch(siteSettingsQuery)
   
   const iconMap: Record<string, any> = {
-    'Empathy': <IconMessageHeart />,
-    'Excellence': <IconStars />,
-    'Inclusion': <IconUsers />,
-    'Integrity': <IconShieldHeart />,
+    'Empathy': <IconMessageHeart size={20} className="text-brand-darkBlue" />,
+    'Excellence': <IconStars size={20} className="text-brand-darkBlue" />,
+    'Inclusion': <IconUsers size={20} className="text-brand-darkBlue" />,
+    'Integrity': <IconShieldHeart size={20} className="text-brand-darkBlue" />,
   }
 
   const defaultValues = [
@@ -34,14 +34,14 @@ export default async function AboutPage() {
   return (
     <div className="pt-32 flex flex-col">
       {/* Hero */}
-      <section className="py-20 bg-white">
+      <section className="pt-12 pb-16 bg-white">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
-          <div className="max-w-3xl space-y-6">
-            <SectionLabel>Our Story</SectionLabel>
-            <h1 className="text-display-md md:text-display-lg font-display text-brand-navy leading-tight">
+          <div className="max-w-3xl">
+            <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Our Story</span>
+            <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
               {settings?.siteTagline || 'Bridging the gap in oral health education.'}
             </h1>
-            <p className="text-xl text-ink/70 font-body leading-relaxed">
+            <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
               {settings?.footerDescription || 'Dókítà Eléyín was born from a simple observation: oral health knowledge is often trapped in clinical settings, making it feel complex and inaccessible.'}
             </p>
           </div>
@@ -49,24 +49,26 @@ export default async function AboutPage() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-24 bg-surface-soft">
+      <section className="py-16 bg-surface-soft">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="bg-white p-12 rounded-[2.5rem] space-y-6 shadow-sm border border-brand-lightBlue/5">
-              <div className="w-12 h-12 bg-brand-lightBlue/10 text-brand-darkBlue rounded-2xl flex items-center justify-center">
+            <div className="bg-surface-soft p-8 rounded-2xl space-y-6 border border-brand-lightBlue/20">
+              <div className="h-1 w-12 bg-brand-lightBlue rounded-full" />
+              <div className="w-12 h-12 bg-brand-lightBlue/10 text-brand-lightBlue rounded-2xl flex items-center justify-center">
                 <IconTarget size={28} />
               </div>
-              <h2 className="text-2xl font-display font-bold text-brand-navy">Our Mission</h2>
-              <p className="text-ink/60 font-body leading-relaxed">
+              <h2 className="text-xl font-display font-semibold text-ink">Our Mission</h2>
+              <p className="text-base text-ink-muted leading-relaxed">
                 {settings?.mission || 'To simplify oral health education through community engagement, digital outreach, and school-led initiatives.'}
               </p>
             </div>
-            <div className="bg-white p-12 rounded-[2.5rem] space-y-6 shadow-sm border border-brand-lightBlue/5">
-              <div className="w-12 h-12 bg-brand-cyan/10 text-brand-navy rounded-2xl flex items-center justify-center">
+            <div className="bg-surface-soft p-8 rounded-2xl space-y-6 border border-brand-lightBlue/20">
+              <div className="h-1 w-12 bg-brand-lightBlue rounded-full" />
+              <div className="w-12 h-12 bg-brand-lightBlue/10 text-brand-lightBlue rounded-2xl flex items-center justify-center">
                 <IconEye size={28} />
               </div>
-              <h2 className="text-2xl font-display font-bold text-brand-navy">Our Vision</h2>
-              <p className="text-ink/60 font-body leading-relaxed">
+              <h2 className="text-xl font-display font-semibold text-ink">Our Vision</h2>
+              <p className="text-base text-ink-muted leading-relaxed">
                 {settings?.vision || 'A world where preventable dental diseases are a thing of the past, and every community has the knowledge to maintain healthy smiles.'}
               </p>
             </div>
@@ -75,20 +77,20 @@ export default async function AboutPage() {
       </section>
 
       {/* Core Values */}
-      <section className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16 space-y-4">
-            <SectionLabel>What Drives Us</SectionLabel>
-            <h2 className="text-display-sm font-display text-brand-navy">Our Core Values</h2>
+      <section className="bg-surface-soft py-16 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">WHAT DRIVES US</span>
+            <h2 className="font-display text-3xl font-semibold text-ink">Our Core Values</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((v: any, i: number) => (
-              <div key={i} className="text-center space-y-4 p-8 rounded-3xl hover:bg-surface-soft transition-colors border border-transparent hover:border-brand-lightBlue/10">
-                <div className="w-12 h-12 mx-auto text-brand-lightBlue">
-                  {iconMap[v.title] || <IconStars />}
+              <div key={i} className="bg-white rounded-2xl p-6 border border-surface-card shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col items-start text-left">
+                <div className="w-10 h-10 rounded-full bg-brand-lightBlue/10 flex items-center justify-center">
+                  {iconMap[v.title] || <IconStars size={20} className="text-brand-darkBlue" />}
                 </div>
-                <h3 className="text-xl font-display font-bold text-brand-navy">{v.title}</h3>
-                <p className="text-sm text-ink/60 font-body leading-relaxed">{v.description || v.desc}</p>
+                <h3 className="font-display font-semibold text-lg text-ink mt-4 mb-2">{v.title}</h3>
+                <p className="text-sm text-ink-muted leading-relaxed">{v.description || v.desc}</p>
               </div>
             ))}
           </div>

@@ -1,4 +1,5 @@
 // src/components/home/ImpactTeaser.tsx
+'use client'
 import Link from 'next/link'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
 import { IconUsers, IconSchool, IconChecklist, IconGift, IconDeviceMobile } from '@tabler/icons-react'
@@ -9,15 +10,22 @@ interface ImpactTeaserProps {
 }
 
 const iconMap: Record<string, any> = {
-  'ti-users': <IconUsers />,
-  'ti-school': <IconSchool />,
-  'ti-checklist': <IconChecklist />,
-  'ti-gift': <IconGift />,
-  'ti-mobile': <IconDeviceMobile />,
+  'ti-users': <IconUsers size={28} />,
+  'ti-school': <IconSchool size={28} />,
+  'ti-checklist': <IconChecklist size={28} />,
+  'ti-gift': <IconGift size={28} />,
+  'ti-mobile': <IconDeviceMobile size={28} />,
+  'ti-building': <IconSchool size={28} />,
 }
 
+const fallbackStats = [
+  { label: 'Individuals Reached', value: 500, icon: 'ti-users', iconName: 'ti-users' },
+  { label: 'Schools Visited', value: 5, icon: 'ti-school', iconName: 'ti-building' },
+  { label: 'Kits Distributed', value: 25, icon: 'ti-gift', iconName: 'ti-gift' },
+]
+
 export default function ImpactTeaser({ stats }: ImpactTeaserProps) {
-  const hasStats = stats && stats.length > 0
+  const displayStats = stats?.length ? stats : fallbackStats
 
   return (
     <section className="py-24 bg-surface-soft relative overflow-hidden">
@@ -34,6 +42,25 @@ export default function ImpactTeaser({ stats }: ImpactTeaserProps) {
             Beyond the numbers, our impact is measured in the smiles we've protected and the habits we've helped build across communities.
           </p>
         </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
+          {displayStats.slice(0, 3).map((s: any, i) => (
+            <div key={i} className="bg-white p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group text-center border border-brand-lightBlue/5">
+              <div className="mx-auto w-14 h-14 flex items-center justify-center rounded-2xl bg-brand-lightBlue/10 text-brand-darkBlue mb-6 group-hover:bg-brand-darkBlue group-hover:text-white transition-colors">
+                {iconMap[s.icon] || iconMap[s.iconName] || <IconChecklist size={28} />}
+              </div>
+              <div>
+                <div className="text-4xl md:text-5xl font-display font-bold text-brand-navy mb-2">
+                  <AnimatedCounter value={s.value} />+
+                </div>
+                <div className="text-xs font-body text-ink/40 uppercase tracking-widest font-bold">
+                  {s.label}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
         
         <Link 
           href="/impact" 
@@ -46,4 +73,3 @@ export default function ImpactTeaser({ stats }: ImpactTeaserProps) {
     </section>
   )
 }
-

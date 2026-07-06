@@ -21,14 +21,14 @@ export default async function ImpactPage() {
   const hasContent = (stats && stats.length > 0) || (stories && stories.length > 0)
 
   return (
-    <div className="pt-32 pb-24 bg-white min-h-screen">
+    <div className="pt-32 pb-16 bg-white min-h-screen">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="max-w-3xl mb-16 space-y-4">
-          <SectionLabel>Our Impact</SectionLabel>
-          <h1 className="text-display-md md:text-display-lg font-display text-brand-navy">
+        <div className="max-w-3xl mb-16">
+          <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Our Impact</span>
+          <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
             Measuring our reach and hearing from the community.
           </h1>
-          <p className="text-lg text-ink/60 font-body">
+          <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
             Every number represents a person empowered with better dental knowledge. Every story is a reminder of why we exist.
           </p>
         </div>
@@ -43,10 +43,10 @@ export default async function ImpactPage() {
           <>
             {stats && stats.length > 0 && <StatsDashboard stats={stats} />}
 
-            {stories && stories.length > 0 && (
+            {stories && stories.length > 0 ? (
               <div className="mt-24 space-y-12">
-                <div className="space-y-4">
-                  <SectionLabel>Human Stories</SectionLabel>
+                <div>
+                  <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Human Stories</span>
                   <h2 className="text-display-sm font-display text-brand-navy">Voices from the community</h2>
                 </div>
                 
@@ -55,6 +55,14 @@ export default async function ImpactPage() {
                     <ImpactStoryCard key={story._id} story={story} />
                   ))}
                 </div>
+              </div>
+            ) : (
+              <div className="py-16 text-center max-w-xl mx-auto">
+                <IconHeart size={40} className="text-brand-lightBlue mx-auto mb-4" />
+                <h2 className="font-display text-2xl font-semibold text-ink mb-3">Impact stories coming soon</h2>
+                <p className="text-base text-ink-muted">
+                  We're collecting stories from the communities we've served. Check back soon.
+                </p>
               </div>
             )}
           </>

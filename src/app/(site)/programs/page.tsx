@@ -28,11 +28,11 @@ export default async function ProgramsPage() {
   const hasContent = programs && programs.length > 0
 
   return (
-    <div className="pt-32 pb-24 bg-white min-h-screen">
+    <div className="pt-32 pb-16 bg-white min-h-screen">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="max-w-3xl mb-16 space-y-4">
-          <SectionLabel>Our Programs</SectionLabel>
-          <h1 className="text-display-md md:text-display-lg font-display text-brand-navy leading-tight">
+        <div className="max-w-3xl mb-16">
+          <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Our Programs</span>
+          <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
             Structured initiatives for lasting dental health.
           </h1>
         </div>
