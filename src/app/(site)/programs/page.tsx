@@ -8,6 +8,7 @@ import SanityImage from '@/components/ui/SanityImage'
 import { IconCircleCheck, IconCalendar } from '@tabler/icons-react'
 import EmptyState from '@/components/ui/EmptyState'
 import { Program } from '@/types'
+import AnimateIn from '@/components/ui/AnimateIn'
 
 export const metadata: Metadata = {
   title: 'Programs | Dókítà Eléyín',
@@ -30,12 +31,14 @@ export default async function ProgramsPage() {
   return (
     <div className="pt-32 pb-16 bg-white min-h-screen">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="max-w-3xl mb-16">
-          <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Our Programs</span>
-          <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
-            Structured initiatives for lasting dental health.
-          </h1>
-        </div>
+        <AnimateIn direction="up" delay={0}>
+          <div className="max-w-3xl mb-16">
+            <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Our Programs</span>
+            <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
+              Structured initiatives for lasting dental health.
+            </h1>
+          </div>
+        </AnimateIn>
 
         {!hasContent ? (
           <EmptyState 

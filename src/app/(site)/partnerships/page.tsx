@@ -7,6 +7,7 @@ import PartnershipForm from '@/components/forms/PartnershipForm'
 import SanityImage from '@/components/ui/SanityImage'
 import { IconSchool, IconHeartHandshake, IconBuildingCommunity, IconCertificate, IconVolume, IconDeviceLaptop } from '@tabler/icons-react'
 import { Partner } from '@/types'
+import AnimateIn from '@/components/ui/AnimateIn'
 
 export const metadata: Metadata = {
   title: 'Partner With Us | Dókítà Eléyín',
@@ -30,15 +31,17 @@ export default async function PartnershipsPage() {
   return (
     <div className="pt-32 pb-16 bg-white min-h-screen">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="max-w-3xl mb-16">
-          <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Partner With Us</span>
-          <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
-            Building a healthier future, together.
-          </h1>
-          <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
-            We believe in the power of collaboration. Whether you're a school, a corporation, or a fellow NGO, let's join forces to simplify oral health.
-          </p>
-        </div>
+        <AnimateIn direction="up" delay={0}>
+          <div className="max-w-3xl mb-16">
+            <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Partner With Us</span>
+            <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
+              Building a healthier future, together.
+            </h1>
+            <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
+              We believe in the power of collaboration. Whether you're a school, a corporation, or a fellow NGO, let's join forces to simplify oral health.
+            </p>
+          </div>
+        </AnimateIn>
 
         {/* Logo Grid */}
         {partners?.length > 0 && (

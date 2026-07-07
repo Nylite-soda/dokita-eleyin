@@ -4,6 +4,7 @@ import SectionLabel from '@/components/ui/SectionLabel'
 import { client } from '@/lib/sanity.client'
 import { siteSettingsQuery } from '@/lib/sanity.queries'
 import { IconTarget, IconEye, IconStars, IconMessageHeart, IconShieldHeart, IconUsers } from '@tabler/icons-react'
+import AnimateIn from '@/components/ui/AnimateIn'
 
 export const metadata: Metadata = {
   title: 'About Us | Dókítà Eléyín',
@@ -36,15 +37,17 @@ export default async function AboutPage() {
       {/* Hero */}
       <section className="pt-12 pb-16 bg-white">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
-          <div className="max-w-3xl">
-            <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Our Story</span>
-            <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
-              {settings?.siteTagline || 'Bridging the gap in oral health education.'}
-            </h1>
-            <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
-              {settings?.footerDescription || 'Dókítà Eléyín was born from a simple observation: oral health knowledge is often trapped in clinical settings, making it feel complex and inaccessible.'}
-            </p>
-          </div>
+          <AnimateIn direction="up" delay={0}>
+            <div className="max-w-3xl">
+              <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Our Story</span>
+              <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
+                {settings?.siteTagline || 'Bridging the gap in oral health education.'}
+              </h1>
+              <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
+                {settings?.footerDescription || 'Dókítà Eléyín was born from a simple observation: oral health knowledge is often trapped in clinical settings, making it feel complex and inaccessible.'}
+              </p>
+            </div>
+          </AnimateIn>
         </div>
       </section>
 

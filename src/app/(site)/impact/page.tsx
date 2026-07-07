@@ -7,6 +7,7 @@ import StatsDashboard from '@/components/impact/StatsDashboard'
 import ImpactStoryCard from '@/components/impact/ImpactStoryCard'
 import EmptyState from '@/components/ui/EmptyState'
 import { IconHeart } from '@tabler/icons-react'
+import AnimateIn from '@/components/ui/AnimateIn'
 
 export const metadata: Metadata = {
   title: 'Community Impact | Dókítà Eléyín',
@@ -23,15 +24,17 @@ export default async function ImpactPage() {
   return (
     <div className="pt-32 pb-16 bg-white min-h-screen">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="max-w-3xl mb-16">
-          <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Our Impact</span>
-          <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
-            Measuring our reach and hearing from the community.
-          </h1>
-          <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
-            Every number represents a person empowered with better dental knowledge. Every story is a reminder of why we exist.
-          </p>
-        </div>
+        <AnimateIn direction="up" delay={0}>
+          <div className="max-w-3xl mb-16">
+            <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Our Impact</span>
+            <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
+              Measuring our reach and hearing from the community.
+            </h1>
+            <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
+              Every number represents a person empowered with better dental knowledge. Every story is a reminder of why we exist.
+            </p>
+          </div>
+        </AnimateIn>
 
         {!hasContent ? (
           <EmptyState 

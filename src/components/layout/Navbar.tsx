@@ -4,9 +4,11 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { IconMenu2, IconX, IconBrandInstagram, IconBrandTiktok, IconChevronRight } from '@tabler/icons-react'
 import { cn } from '@/lib/utils'
+
+let hasAnimated = false
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
@@ -20,7 +22,9 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [logoShouldPulse, setLogoShouldPulse] = useState(false)
   const pathname = usePathname()
+  const shouldReduceMotion = useReducedMotion()
   const isHome = pathname === '/'
 
   const dynamicLinks = NAV_LINKS
@@ -53,7 +57,20 @@ export default function Navbar() {
       )}
     >
       <div className="max-w-6xl mx-auto px-8">
-        <nav 
+        <motion.nav 
+          initial={hasAnimated || shouldReduceMotion ? { y: 0, opacity: 1 } : { y: -64, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={
+            hasAnimated || shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: 0.5, delay: 1.5, ease: [0.25, 0.1, 0.25, 1] }
+          }
+          onAnimationComplete={() => {
+            if (!hasAnimated) {
+              setLogoShouldPulse(true)
+              hasAnimated = true
+            }
+          }}
           className={cn(
             "relative flex items-center justify-between transition-all duration-500 rounded-[2rem] px-6 py-2",
             isScrolled 
@@ -62,8 +79,8 @@ export default function Navbar() {
           )}
         >
           {/* Brand/Logo */}
-          <NavBrand theme={navTheme} isScrolled={isScrolled} />
-
+          <NavBrand theme={navTheme} isScrolled={isScrolled} shouldPulse={logoShouldPulse} />
+          
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
             <div className="flex items-center px-4 py-1.5 rounded-full bg-black/5 backdrop-blur-sm mr-4 border border-white/10">
@@ -101,7 +118,7 @@ export default function Navbar() {
           >
             {isMobileMenuOpen ? <IconX size={24} /> : <IconMenu2 size={24} />}
           </button>
-        </nav>
+        </motion.nav>
       </div>
 
       {/* Mobile Navigation Overlay */}
@@ -119,16 +136,30 @@ export default function Navbar() {
   )
 }
 
-function NavBrand({ theme, isScrolled }: { theme: 'light' | 'dark', isScrolled: boolean }) {
+function NavBrand({ 
+  theme, 
+  isScrolled, 
+  shouldPulse 
+}: { 
+  theme: 'light' | 'dark'
+  isScrolled: boolean
+  shouldPulse?: boolean 
+}) {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <Link href="/" className="relative z-50 flex items-center transition-transform hover:scale-[1.02] active:scale-[0.98]">
-      <div className="h-7 md:h-9 w-auto relative">
+      <motion.div 
+        animate={shouldPulse && !shouldReduceMotion ? { scale: [1, 1.06, 1] } : { scale: 1 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="h-7 md:h-9 w-auto relative"
+      >
         <img 
           src={theme === 'dark' ? "/logos/logo-horizontal-white-tagline.svg" : "/logos/logo-horizontal-color.svg"} 
           alt="Dókítà Eléyín" 
           className="h-full w-auto object-contain transition-all duration-300"
         />
-      </div>
+      </motion.div>
     </Link>
   )
 }

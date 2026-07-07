@@ -12,7 +12,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
   return (
     <Link 
       href={`/learning/${article.slug.current}`}
-      className="group bg-white rounded-3xl overflow-hidden border border-surface-card hover:shadow-xl hover:shadow-brand-darkBlue/5 transition-all duration-300"
+      className="group bg-white rounded-3xl overflow-hidden border border-surface-card border-l-[3px] border-l-transparent hover:border-l-[#55C9F4] hover:-translate-y-[4px] hover:shadow-[0_8px_24px_rgba(46,92,169,0.12)] transition-[transform,box-shadow,border-left-color] duration-150 ease-out"
     >
       <div className="aspect-[16/9] relative overflow-hidden">
         <SanityImage 

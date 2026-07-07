@@ -5,6 +5,7 @@ import ContactForm from '@/components/forms/ContactForm'
 import { IconMail, IconPhone, IconMapPin, IconBrandInstagram, IconBrandTiktok, IconBrandYoutube } from '@tabler/icons-react'
 import { client } from '@/lib/sanity.client'
 import { siteSettingsQuery } from '@/lib/sanity.queries'
+import AnimateIn from '@/components/ui/AnimateIn'
 
 export const metadata: Metadata = {
   title: 'Contact | Dókítà Eléyín',
@@ -21,15 +22,17 @@ export default async function ContactPage() {
           
           {/* Left: Contact Info */}
           <div className="lg:col-span-5 space-y-12">
-            <div>
-              <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Get in touch</span>
-              <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
-                We'd love to hear from you.
-              </h1>
-              <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
-                Have a question about oral health? Want to invite us to your school? Or just want to say hello? Drop us a message.
-              </p>
-            </div>
+            <AnimateIn direction="up" delay={0}>
+              <div>
+                <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Get in touch</span>
+                <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
+                  We'd love to hear from you.
+                </h1>
+                <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
+                  Have a question about oral health? Want to invite us to your school? Or just want to say hello? Drop us a message.
+                </p>
+              </div>
+            </AnimateIn>
 
             <div className="space-y-8">
               <div className="flex items-start gap-6">

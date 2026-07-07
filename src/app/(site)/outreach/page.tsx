@@ -8,6 +8,7 @@ import SanityImage from '@/components/ui/SanityImage'
 import { IconMapPin, IconCalendar, IconUsers, IconTruckDelivery } from '@tabler/icons-react'
 import EmptyState from '@/components/ui/EmptyState'
 import { OutreachEvent } from '@/types'
+import AnimateIn from '@/components/ui/AnimateIn'
 
 export const metadata: Metadata = {
   title: 'Outreach | Dókítà Eléyín',
@@ -22,15 +23,17 @@ export default async function OutreachPage() {
   return (
     <div className="pt-32 pb-16 bg-white min-h-screen">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="max-w-3xl mb-16">
-          <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Outreach Events</span>
-          <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
-            Our journey across communities.
-          </h1>
-          <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
-            From rural schools to urban community centers, we're on the move to ensure no one is left behind in oral health education.
-          </p>
-        </div>
+        <AnimateIn direction="up" delay={0}>
+          <div className="max-w-3xl mb-16">
+            <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Outreach Events</span>
+            <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
+              Our journey across communities.
+            </h1>
+            <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
+              From rural schools to urban community centers, we're on the move to ensure no one is left behind in oral health education.
+            </p>
+          </div>
+        </AnimateIn>
 
         {(!events || events.length === 0) ? (
           <EmptyState 
