@@ -6,6 +6,7 @@ export interface SocialLinks {
   youtube?: string
   linkedin?: string
   twitter?: string
+  facebook?: string
 }
 export interface SanityImageObject {
   _type: 'image'
@@ -22,12 +23,14 @@ export interface Category { _id: string; name: string; slug: { current: string }
 export interface Founder {
   _id: string
   fullName: string
+  title?: string
   credentials?: string[]
   photo?: SanityImageObject
   bio?: PortableTextContent
   shortBio?: string
   socialLinks?: SocialLinks
   featuredQuote?: string
+  additionalQuote?: string
 }
 export interface Article {
   _id: string
@@ -65,6 +68,7 @@ export interface ImpactStat {
   _id: string
   label: string
   value: number
+  suffix?: string
   icon?: string
   sortOrder?: number
 }

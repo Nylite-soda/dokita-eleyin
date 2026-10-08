@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { IconHeart, IconMessageHeart, IconMoodSmile, IconShieldCheck, IconStethoscope } from '@tabler/icons-react'
 import SectionLabel from '@/components/ui/SectionLabel'
-import RichText from '@/components/ui/RichText'
+import FaqSection from '@/components/faq/FaqSection'
 import ServiceCard from '@/components/consultation/ServiceCard'
 import BookingWidget from '@/components/consultation/BookingWidget'
 import { getFAQs, getSiteSettings } from '@/lib/content'
@@ -57,13 +57,7 @@ export default async function ConsultationPage() {
           <p className="text-center text-ink/80">Learn about <Link href="/founder" className="text-brand-darkBlue underline underline-offset-4">Dr. Ibukun and Dókítà Eléyín</Link>.</p>
         </section>
 
-        {faqs.length > 0 && <section aria-labelledby="faq-heading" className="max-w-3xl mx-auto space-y-6">
-          <h2 id="faq-heading" className="text-display-sm font-display text-brand-navy text-center">Consultation questions</h2>
-          <div className="space-y-3">{faqs.map(faq => <details key={faq._id} className="rounded-2xl border border-brand-darkBlue/15 p-5">
-            <summary className="cursor-pointer font-bold text-brand-navy focus-visible:outline-2 focus-visible:outline-brand-darkBlue">{faq.question}</summary>
-            <RichText value={faq.answer} className="mt-4 text-base" />
-          </details>)}</div>
-        </section>}
+        <FaqSection faqs={faqs} title="Consultation questions" />
       </div>
     </div>
   )

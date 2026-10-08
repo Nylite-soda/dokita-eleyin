@@ -1,5 +1,5 @@
 // src/app/partnerships/page.tsx
-import { getPartners } from '@/lib/content'
+import { getFAQs, getPartners } from '@/lib/content'
 import { pageMetadata } from '@/lib/seo'
 import SectionLabel from '@/components/ui/SectionLabel'
 import PartnershipForm from '@/components/forms/PartnershipForm'
@@ -7,6 +7,7 @@ import ContentImage from '@/components/ui/ContentImage'
 import { IconSchool, IconHeartHandshake, IconBuildingCommunity, IconCertificate, IconVolume, IconDeviceLaptop } from '@tabler/icons-react'
 import { Partner } from '@/types'
 import AnimateIn from '@/components/ui/AnimateIn'
+import FaqSection from '@/components/faq/FaqSection'
 
 export const metadata = pageMetadata({
   title: 'Partner With Us',
@@ -17,7 +18,7 @@ export const metadata = pageMetadata({
 export const revalidate = 60
 
 export default async function PartnershipsPage() {
-  const partners = await getPartners()
+  const [partners, faqs] = await Promise.all([getPartners(), getFAQs('partnerships')])
 
   const opportunities = [
     { title: 'School Programs', icon: <IconSchool />, desc: 'Partner with us to bring dental education to your students.' },
@@ -70,6 +71,7 @@ export default async function PartnershipsPage() {
             </div>
           ))}
         </div>
+        <FaqSection faqs={faqs} title="Partnership questions" className="mt-20" />
 
       </div>
 

@@ -15,6 +15,7 @@
     "data:import-sqlite": "node scripts/migrate-sqlite-to-postgres.mjs",
     "admin:create": "node --loader ./scripts/test-loader.mjs scripts/create-admin.mjs",
     "content:import": "node --loader ./scripts/test-loader.mjs scripts/import-content.mjs",
+    "content:import-founder-packet": "node --loader ./scripts/test-loader.mjs scripts/import-founder-packet.mjs",
     "prisma:studio": "prisma studio"
   },
   "dependencies": {

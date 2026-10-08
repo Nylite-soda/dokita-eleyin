@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { IconMenu2, IconX, IconBrandInstagram, IconBrandTiktok, IconBrandYoutube, IconBrandLinkedin, IconBrandX, IconChevronRight } from '@tabler/icons-react'
+import { IconMenu2, IconX, IconBrandInstagram, IconBrandTiktok, IconBrandYoutube, IconBrandLinkedin, IconBrandX, IconBrandFacebook, IconChevronRight } from '@tabler/icons-react'
 import { cn } from '@/lib/utils'
 import { getSocialLinks, type SocialHandles } from '@/lib/social'
 
@@ -20,6 +20,7 @@ const MORE_LINKS = [
   { label: 'Meet the Founder', href: '/founder' },
   { label: 'Partnerships', href: '/partnerships' },
   { label: 'Contact', href: '/contact' },
+  { label: 'FAQs', href: '/faq' },
 ]
 const socialIcons = {
   instagram: IconBrandInstagram,
@@ -27,6 +28,7 @@ const socialIcons = {
   youtube: IconBrandYoutube,
   linkedin: IconBrandLinkedin,
   twitter: IconBrandX,
+  facebook: IconBrandFacebook,
 }
 
 function isCurrentPath(pathname: string, href: string) {

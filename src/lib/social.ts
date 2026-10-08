@@ -1,4 +1,4 @@
-export type SocialPlatform = 'instagram' | 'tiktok' | 'youtube' | 'linkedin' | 'twitter'
+export type SocialPlatform = 'instagram' | 'tiktok' | 'youtube' | 'linkedin' | 'twitter' | 'facebook'
 export type SocialHandles = Partial<Record<SocialPlatform, string>>
 
 const platforms = {
@@ -7,6 +7,7 @@ const platforms = {
   youtube: { label: 'YouTube', host: 'youtube.com', prefix: '@' },
   linkedin: { label: 'LinkedIn', host: 'linkedin.com', prefix: 'in/' },
   twitter: { label: 'X', host: 'x.com', prefix: '' },
+  facebook: { label: 'Facebook', host: 'facebook.com', prefix: '' },
 } satisfies Record<SocialPlatform, { label: string; host: string; prefix: string }>
 
 /** Editors can supply a handle or a complete URL for the selected platform. */
@@ -20,7 +21,8 @@ export function normalizeSocialUrl(platform: SocialPlatform, value?: string): st
       const url = new URL(input.startsWith('//') ? `https:${input}` : /^https?:\/\//i.test(input) ? input : `https://${input}`)
       const hostname = url.hostname.replace(/^www\./, '')
       const allowedHosts = platform === 'twitter' ? ['twitter.com', 'x.com'] : [host]
-      if (!allowedHosts.includes(hostname) || url.username || url.password || !/^https?:$/.test(url.protocol)) return undefined
+      const trustedSubdomain = platform === 'tiktok' && hostname.endsWith('.tiktok.com')
+      if ((!allowedHosts.includes(hostname) && !trustedSubdomain) || url.username || url.password || !/^https?:$/.test(url.protocol)) return undefined
       url.protocol = 'https:'
       return url.href
     } catch {

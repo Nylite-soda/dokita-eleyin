@@ -28,7 +28,7 @@ export function listSchema<T>(item: z.ZodType<T>) {
   }) : [], z.array(item))
 }
 const richText = listSchema(z.union([block, imageSchema])).optional()
-const social = z.object({ instagram: text, tiktok: text, youtube: text, linkedin: text, twitter: text }).optional().catch(undefined)
+const social = z.object({ instagram: text, tiktok: text, youtube: text, linkedin: text, twitter: text, facebook: text }).optional().catch(undefined)
 
 export const categorySchema = z.object({ _id: id, name: z.string().min(1), slug })
 const articleBase = z.object({
@@ -38,8 +38,8 @@ const articleBase = z.object({
 })
 export const articleSchema: z.ZodType<Article> = articleBase.extend({ relatedArticles: listSchema(articleBase).optional() })
 export const founderSchema = z.object({
-  _id: id, fullName: z.string().min(1), credentials: listSchema(z.string()).optional(), photo: optionalImage,
-  bio: richText, shortBio: text, socialLinks: social, featuredQuote: text,
+  _id: id, fullName: z.string().min(1), title: text, credentials: listSchema(z.string()).optional(), photo: optionalImage,
+  bio: richText, shortBio: text, socialLinks: social, featuredQuote: text, additionalQuote: text,
 })
 export const programSchema = z.object({
   _id: id, name: z.string().min(1), slug: slug.optional().catch(undefined), shortDescription: text,
@@ -58,7 +58,7 @@ export const partnerSchema = z.object({
   type: z.enum(['school', 'ngo', 'corporate', 'healthcare', 'government']).optional().catch(undefined),
   description: text, isActive: z.boolean().default(false),
 })
-export const statSchema = z.object({ _id: id, label: z.string().min(1), value: z.number().nonnegative(), icon: text, sortOrder: z.number().optional().catch(undefined) })
+export const statSchema = z.object({ _id: id, label: z.string().min(1), value: z.number().nonnegative(), suffix: text, icon: text, sortOrder: z.number().optional().catch(undefined) })
 export const storySchema = z.object({ _id: id, name: z.string().min(1), role: text, location: text, photo: optionalImage, story: richText, isFeatured: z.boolean().optional() })
 export const impactSchema = z.object({ stats: listSchema(statSchema), stories: listSchema(storySchema), outreachCount: z.number().nonnegative().default(0) })
 export const faqSchema = z.object({ _id: id, question: z.string().min(1), answer: richText.default([]), category: z.enum(['general', 'consultation', 'programs', 'partnerships']).optional().catch(undefined), sortOrder: z.number().optional() })

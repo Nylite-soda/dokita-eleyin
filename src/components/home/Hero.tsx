@@ -31,6 +31,7 @@ export default function Hero({ data }: HeroProps) {
             <p className="text-lg md:text-xl text-blue-100/80 font-body max-w-2xl mx-auto lg:mx-0 leading-relaxed">
               {data?.heroSubheadline || "We bridge the gap in dental education through community-led initiatives and simple, actionable guidance."}
             </p>
+            {data?.socialProofText && <p className="mx-auto max-w-xl rounded-2xl border border-white/15 bg-white/10 px-5 py-3 text-sm leading-relaxed text-blue-50 lg:mx-0">{data.socialProofText}</p>}
             
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
                 <Button variant="secondary" size="lg" className="px-8 py-4" asChild>

@@ -27,7 +27,7 @@ export default function StatsDashboard({ stats }: StatsDashboardProps) {
               </div>
               <div>
                 <div className="text-4xl font-display font-bold text-white">
-                  <AnimatedCounter value={stat.value} />
+                  <AnimatedCounter value={stat.value} />{stat.suffix}
                 </div>
                 <p className="text-sm font-body text-blue-100 uppercase tracking-widest mt-2">
                   {stat.label}

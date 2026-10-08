@@ -1,5 +1,5 @@
 // src/app/programs/page.tsx
-import { getPrograms } from '@/lib/content'
+import { getFAQs, getPrograms } from '@/lib/content'
 import { pageMetadata } from '@/lib/seo'
 import SectionLabel from '@/components/ui/SectionLabel'
 import RichText from '@/components/ui/RichText'
@@ -7,6 +7,7 @@ import ContentImage from '@/components/ui/ContentImage'
 import { IconCircleCheck, IconCalendar } from '@tabler/icons-react'
 import EmptyState from '@/components/ui/EmptyState'
 import AnimateIn from '@/components/ui/AnimateIn'
+import FaqSection from '@/components/faq/FaqSection'
 
 export const metadata = pageMetadata({
   title: 'Programs',
@@ -17,7 +18,7 @@ export const metadata = pageMetadata({
 export const revalidate = 60
 
 export default async function ProgramsPage() {
-  const programs = await getPrograms()
+  const [programs, faqs] = await Promise.all([getPrograms(), getFAQs('programs')])
 
   const programTypes = [
     { id: 'school', label: 'School Initiatives' },
@@ -113,6 +114,7 @@ export default async function ProgramsPage() {
             })}
           </div>
         )}
+        <FaqSection faqs={faqs} title="Programmes and outreach questions" className="mt-20" />
       </div>
     </div>
   )

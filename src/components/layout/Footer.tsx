@@ -1,7 +1,7 @@
 // src/components/layout/Footer.tsx
 import Link from 'next/link'
 import Image from 'next/image'
-import { IconBrandInstagram, IconBrandTiktok, IconBrandYoutube, IconBrandLinkedin, IconBrandX } from '@tabler/icons-react'
+import { IconBrandInstagram, IconBrandTiktok, IconBrandYoutube, IconBrandLinkedin, IconBrandX, IconBrandFacebook } from '@tabler/icons-react'
 import { getSiteSettings } from '@/lib/content'
 import { getSocialLinks } from '@/lib/social'
 import type { SiteSettings } from '@/types'
@@ -13,6 +13,7 @@ const socialIcons = {
   youtube: IconBrandYoutube,
   linkedin: IconBrandLinkedin,
   twitter: IconBrandX,
+  facebook: IconBrandFacebook,
 }
 
 export default async function Footer({ settings: suppliedSettings }: { settings?: SiteSettings | null }) {
@@ -55,6 +56,7 @@ export default async function Footer({ settings: suppliedSettings }: { settings?
               <Link href="/consultation" className="hover:text-white transition-colors">Consultation</Link>
               <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
               <Link href="/founder" className="hover:text-white transition-colors">Meet the Founder</Link>
+              <Link href="/faq" className="hover:text-white transition-colors">FAQs</Link>
             </nav>
           </div>
 

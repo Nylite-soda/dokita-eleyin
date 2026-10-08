@@ -24,9 +24,11 @@ export default async function FounderPage() {
           <div className="space-y-6">
             <SectionLabel>Meet the Founder</SectionLabel>
             <h1 className="text-display-md font-display text-brand-navy leading-tight">{founder.fullName}</h1>
+            {founder.title && <p className="max-w-2xl text-lg font-semibold leading-relaxed text-brand-darkBlue">{founder.title}</p>}
             {!!founder.credentials?.length && <ul className="flex flex-wrap gap-2" aria-label="Qualifications">{founder.credentials.map(credential => <li key={credential} className="bg-surface-soft text-brand-darkBlue px-4 py-2 rounded-full text-sm font-semibold">{credential}</li>)}</ul>}
             {founder.shortBio && <p className="text-lg text-ink-muted leading-relaxed">{founder.shortBio}</p>}
             {founder.featuredQuote && <blockquote className="border-l-4 border-brand-darkBlue pl-5 text-xl font-display text-brand-navy leading-relaxed">{founder.featuredQuote}</blockquote>}
+            {founder.additionalQuote && <blockquote className="border-l-4 border-brand-lightBlue pl-5 text-lg font-body italic text-ink-muted leading-relaxed">{founder.additionalQuote}</blockquote>}
             <Button asChild><Link href="/contact">Contact the team</Link></Button>
           </div>
           {founder.photo && <ContentImage asset={founder.photo} alt={founder.photo.alt || founder.fullName} width={600} height={750} className="rounded-3xl max-w-md" imageClassName="object-top" sizes="(max-width: 1024px) 100vw, 40vw" loading="eager" />}

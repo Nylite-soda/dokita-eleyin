@@ -10,7 +10,7 @@ interface ImpactStoryCardProps {
 export default function ImpactStoryCard({ story }: ImpactStoryCardProps) {
   return (
     <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-surface-card flex flex-col md:flex-row gap-8 items-start">
-      <div className="shrink-0">
+      {story.photo && <div className="shrink-0">
         <ContentImage
           asset={story.photo}
           alt={story.name}
@@ -18,7 +18,7 @@ export default function ImpactStoryCard({ story }: ImpactStoryCardProps) {
           width={128}
           height={128}
         />
-      </div>
+      </div>}
       <div className="space-y-4">
         <div className="italic text-lg font-body text-ink/70 leading-relaxed">
           <RichText value={story.story} />
