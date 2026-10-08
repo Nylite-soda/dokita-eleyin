@@ -122,7 +122,7 @@
 .dental-motion--md { --dental-motion-size: 7rem; }
 .dental-motion--lg { --dental-motion-size: 9rem; flex-direction: column; gap: .4rem; }
 .dental-motion__art { display: block; width: 100%; height: auto; overflow: visible; }
-.dental-motion--molar .dental-motion__orbit { transform-origin: 60px 60px; animation: molar-orbit 5s linear infinite; stroke: #2e5ca9; opacity: .5; stroke-width: 2; }
+.dental-motion--molar .dental-motion__orbit { transform-origin: 60px 60px; animation: molar-orbit 5s linear infinite; stroke: #2e5ca9; opacity: .78; stroke-width: 2.5; }
 .dental-motion__orbit-front { display: none; }
 .dental-motion--molar .dental-motion__orbit-front { display: block; transform-origin: 60px 60px; animation: molar-orbit 5s linear infinite; }
 .dental-motion--molar .dental-motion__tooth { transform-origin: 60px 60px; animation: molar-charge 2.8s ease-in-out infinite; }
@@ -145,7 +145,7 @@
 @keyframes brush-sweep { 0%, 100% { transform: translate(-4px, 4px) rotate(-4deg); } 50% { transform: translate(5px, -4px) rotate(5deg); } }
 @keyframes tube-squeeze { 0%, 100% { transform: rotate(-3deg) scale(.96); } 50% { transform: rotate(4deg) scale(1.04); } }
 @keyframes paste-draw { 0%, 15% { stroke-dashoffset: 150; opacity: .3; } 65%, 85% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: -150; opacity: 0; } }
-.hero-dental-accent { position: absolute; z-index: 2; top: 1.25rem; left: 1.25rem; display: grid; width: 3.75rem; height: 3.75rem; place-items: center; border: 1px solid rgb(255 255 255 / .38); border-radius: 50%; background: rgb(26 54 102 / .82); box-shadow: 0 12px 32px rgb(10 30 65 / .2); backdrop-filter: blur(8px); }
+.hero-dental-accent { position: absolute; z-index: 2; top: 2.5rem; left: 1.25rem; display: grid; width: 3.75rem; height: 3.75rem; place-items: center; border: 1px solid rgb(255 255 255 / .38); border-radius: 50%; background: rgb(26 54 102 / .82); box-shadow: 0 12px 32px rgb(10 30 65 / .2); backdrop-filter: blur(8px); }
 .hero-dental-accent .dental-motion { --dental-motion-size: 3.1rem; }
 .hero-dental-accent .dental-motion__art { filter: drop-shadow(0 2px 4px rgb(0 0 0 / .15)); }
 @media (prefers-reduced-motion: reduce) {
