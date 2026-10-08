@@ -36,7 +36,7 @@ export default function DentalMotion({ variant = 'molar', label = 'Loading', siz
           </filter>
         </defs>
         <g className="dental-motion__orbit" fill="none" stroke="currentColor" strokeWidth="1.5" opacity=".4">
-          <ellipse cx="60" cy="60" rx="47" ry="17" />
+          <ellipse cx="60" cy="60" rx="52" ry="27" />
         </g>
         <g className="dental-motion__tooth" filter={`url(#${id}-tooth-shadow)`}>
           <path d="M30 47c0-15 10-24 23-24 8 0 12 4 17 4s9-4 17-4c13 0 23 9 23 24 0 12-5 19-9 27-5 10-6 25-13 25-8 0-6-22-16-22s-8 22-16 22c-7 0-8-15-13-25-4-8-13-15-13-27Z" fill={`url(#${id}-enamel)`} stroke="#fff" strokeWidth="2" />
@@ -44,6 +44,7 @@ export default function DentalMotion({ variant = 'molar', label = 'Loading', siz
           <path d="M42 42c2-7 7-10 13-10" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" opacity=".9" />
           <circle cx="81" cy="42" r="2.5" fill="#fff" opacity=".9" />
         </g>
+        <path className="dental-motion__orbit-front" d="M8 60a52 27 0 0 0 104 0" fill="none" stroke="#2e5ca9" strokeWidth="2.8" strokeLinecap="round" />
         <g className="dental-motion__brush" strokeLinecap="round">
           <path d="M29 83 56 56" stroke="#55c9f4" strokeWidth="7" />
           <path d="m52 60 13-13" stroke="#fff" strokeWidth="9" />
