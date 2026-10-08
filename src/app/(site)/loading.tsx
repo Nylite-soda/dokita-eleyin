@@ -1,9 +1,13 @@
+import DentalMotion from '@/components/ui/DentalMotion'
+
 export default function Loading() {
-  return <div className="max-w-6xl mx-auto px-6 pt-40 pb-20" role="status" aria-live="polite">
-    <span className="sr-only">Loading the page…</span>
-    <div className="h-5 w-32 rounded bg-surface-card mb-6" />
-    <div className="h-12 w-3/4 rounded bg-surface-card mb-6" />
-    <div className="h-5 max-w-xl rounded bg-surface-card mb-3" />
-    <div className="h-5 max-w-md rounded bg-surface-card" />
+  return <div className="mx-auto flex min-h-[65vh] w-full max-w-6xl flex-col items-center justify-center px-6 py-24" aria-busy="true">
+    <DentalMotion size="lg" label="Loading page content from the clinic library" />
+    <div className="mt-10 w-full max-w-2xl animate-pulse" aria-hidden="true">
+      <div className="mx-auto mb-5 h-4 w-28 rounded-full bg-surface-card" />
+      <div className="mx-auto mb-5 h-10 w-4/5 rounded-xl bg-surface-card" />
+      <div className="mx-auto mb-3 h-4 max-w-xl rounded-full bg-surface-card" />
+      <div className="mx-auto h-4 max-w-md rounded-full bg-surface-card" />
+    </div>
   </div>
 }

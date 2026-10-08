@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { Button } from '@/components/ui/Button'
 import { contactFormSchema, contactSubjects } from './form-schemas'
 import { useSubmission } from './useSubmission'
+import DentalMotion from '@/components/ui/DentalMotion'
 
 type FormData = z.infer<typeof contactFormSchema>
 const controlClass = 'w-full min-w-0 bg-white border border-ink/15 rounded-2xl px-4 sm:px-5 py-3.5 font-body focus:outline-none focus:ring-2 focus:ring-brand-darkBlue shadow-sm'
@@ -66,7 +67,7 @@ export default function ContactForm() {
             {fieldError('message')}
           </div>
           {status === 'error' && <div ref={feedbackRef} role="alert" tabIndex={-1} className="rounded-xl bg-red-50 p-4 text-sm text-red-800 focus:outline-none">{error}</div>}
-          <Button type="submit" className="w-full py-3.5" disabled={status === 'loading'}>{status === 'loading' ? 'Sending…' : 'Send message'}</Button>
+          <Button type="submit" className="w-full py-3.5" disabled={status === 'loading'}>{status === 'loading' && <DentalMotion variant="brush" size="sm" decorative className="mr-2 text-white" />}{status === 'loading' ? 'Sending…' : 'Send message'}</Button>
         </form>
       )}
     </div>

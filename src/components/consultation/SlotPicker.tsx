@@ -3,6 +3,7 @@
 import { useEffect, useId, useState } from 'react'
 import type { BookingSlot } from '@/lib/booking-types'
 import { formatSlot } from './booking-client'
+import DentalMotion from '@/components/ui/DentalMotion'
 
 interface SlotPickerProps {
   serviceId: string
@@ -33,7 +34,7 @@ export default function SlotPicker({ serviceId, date, timezone, selected, onSele
   }, [serviceId, date, token, key, retry])
 
   if (!serviceId || !date) return <p className="text-ink/80">Choose a service and date to see times.</p>
-  if (result.key !== key) return <p role="status" className="text-ink/80">Loading available times…</p>
+  if (result.key !== key) return <div className="flex min-h-28 items-center gap-4 rounded-2xl bg-white px-5 py-4"><DentalMotion size="md" label="Checking the live appointment calendar" /><p className="text-ink/80">Checking available appointment times…</p></div>
   if (result.error) return <div role="alert" className="text-red-800 space-y-2"><p>{result.error}</p><button type="button" onClick={() => setRetry(value => value + 1)} className="underline underline-offset-4">Try loading times again</button></div>
   if (result.slots.length === 0) return <p role="status" className="text-ink/80">There are no available times on this date. Choose another date or contact the team.</p>
   return (

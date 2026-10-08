@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/Button'
 import ContentImage from '@/components/ui/ContentImage'
 import { HomepageSettings } from '@/types'
+import DentalMotion from '@/components/ui/DentalMotion'
 
 interface HeroProps {
   data: HomepageSettings | null
@@ -56,6 +57,7 @@ export default function Hero({ data }: HeroProps) {
                     <Image src="/logos/icon-symbol-white.svg" alt="" width={128} height={128} className="w-32 opacity-20" />
                   </div>
                 )}
+                <span className="hero-dental-accent"><DentalMotion variant="molar" decorative size="sm" /></span>
               </div>
             </div>
           </div>

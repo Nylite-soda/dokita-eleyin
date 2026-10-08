@@ -10,6 +10,7 @@ import { localDate } from '@/lib/booking-slots'
 import { Button } from '@/components/ui/Button'
 import SlotPicker from './SlotPicker'
 import { bookingRequest, formatFee } from './booking-client'
+import DentalMotion from '@/components/ui/DentalMotion'
 
 interface BookingWidgetProps { services: BookingService[]; availability: Pick<Availability, 'timezone' | 'minNoticeHours' | 'windowDays' | 'cancellationNoticeHours' | 'cancellationPolicy'> }
 const schema = z.object({ name: z.string().trim().min(2, 'Enter your full name.').max(120), email: z.email('Enter a valid email address.').max(254).toLowerCase(), phone: z.string().trim().max(30), notes: z.string().trim().max(2000), consent: z.boolean().refine(value => value, 'Please agree to the booking terms.') })
@@ -70,6 +71,6 @@ export default function BookingWidget({ services, availability }: BookingWidgetP
     <div className="space-y-2"><label htmlFor={`${id}-notes`} className="font-bold text-brand-navy">What would you like to discuss? (optional)</label><textarea {...register('notes')} id={`${id}-notes`} rows={3} maxLength={2000} aria-invalid={Boolean(errors.notes)} aria-describedby={`${id}-notes-help${errors.notes ? ` ${id}-notes-error` : ''}`} className={controlClass} /><p id={`${id}-notes-help`} className="text-sm text-ink/80">A brief topic is enough. Please avoid sharing sensitive medical information here.</p>{fieldError('notes')}</div>
     <div className="text-sm text-ink/80 space-y-2"><p>{availability.cancellationPolicy || 'Use your private booking link to cancel or reschedule before your session starts. Paid cancellations require a refund review by the team.'}</p>{availability.cancellationNoticeHours > 0 && <p>Changes require at least {availability.cancellationNoticeHours} hours’ notice.</p>}<label htmlFor={`${id}-consent`} className="flex items-start gap-3"><input {...register('consent')} id={`${id}-consent`} type="checkbox" aria-invalid={Boolean(errors.consent)} aria-describedby={errors.consent ? `${id}-consent-error` : undefined} className="w-5 h-5 shrink-0 accent-brand-darkBlue" /><span>I agree to the booking and cancellation terms, and to being contacted about this appointment.</span></label>{fieldError('consent')}</div>
     {error && <div ref={feedback} tabIndex={-1} role="alert" className="rounded-xl bg-red-50 p-4 text-red-800 focus:outline-none">{error}</div>}
-    <Button type="submit" disabled={busy} className="w-full">{busy ? 'Reserving your appointment…' : service?.depositNGN ? 'Reserve time and continue to payment' : 'Confirm consultation'}</Button>
+    <Button type="submit" disabled={busy} className="w-full">{busy && <DentalMotion size="sm" variant="brush" decorative className="mr-2 text-white" />}{busy ? 'Reserving your appointment…' : service?.depositNGN ? 'Reserve time and continue to payment' : 'Confirm consultation'}</Button>
   </form>
 }
