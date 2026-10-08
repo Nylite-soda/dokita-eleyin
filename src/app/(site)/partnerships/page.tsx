@@ -1,23 +1,23 @@
 // src/app/partnerships/page.tsx
-import { Metadata } from 'next'
-import { client } from '@/lib/sanity.client'
-import { partnersQuery } from '@/lib/sanity.queries'
+import { getPartners } from '@/lib/content'
+import { pageMetadata } from '@/lib/seo'
 import SectionLabel from '@/components/ui/SectionLabel'
 import PartnershipForm from '@/components/forms/PartnershipForm'
-import SanityImage from '@/components/ui/SanityImage'
+import ContentImage from '@/components/ui/ContentImage'
 import { IconSchool, IconHeartHandshake, IconBuildingCommunity, IconCertificate, IconVolume, IconDeviceLaptop } from '@tabler/icons-react'
 import { Partner } from '@/types'
 import AnimateIn from '@/components/ui/AnimateIn'
 
-export const metadata: Metadata = {
-  title: 'Partner With Us | Dókítà Eléyín',
+export const metadata = pageMetadata({
+  title: 'Partner With Us',
   description: 'Collaborate with Dókítà Eléyín to bring oral health education to schools, communities, and organizations.',
-}
+  path: '/partnerships',
+})
 
 export const revalidate = 60
 
 export default async function PartnershipsPage() {
-  const partners: Partner[] = await client.fetch(partnersQuery)
+  const partners = await getPartners()
 
   const opportunities = [
     { title: 'School Programs', icon: <IconSchool />, desc: 'Partner with us to bring dental education to your students.' },
@@ -33,13 +33,14 @@ export default async function PartnershipsPage() {
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <AnimateIn direction="up" delay={0}>
           <div className="max-w-3xl mb-16">
-            <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Partner With Us</span>
+            <SectionLabel>Partner With Us</SectionLabel>
             <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
               Building a healthier future, together.
             </h1>
             <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
-              We believe in the power of collaboration. Whether you're a school, a corporation, or a fellow NGO, let's join forces to simplify oral health.
+              We believe in the power of collaboration. Whether you&apos;re a school, a corporation, or a fellow NGO, let&apos;s join forces to simplify oral health.
             </p>
+            <a href="#partnership-form" className="inline-flex mt-6 bg-brand-darkBlue text-white px-6 py-3 rounded-full font-semibold">Start a partnership enquiry</a>
           </div>
         </AnimateIn>
 
@@ -50,7 +51,7 @@ export default async function PartnershipsPage() {
             <div className="flex flex-wrap justify-center gap-12 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all">
               {partners.map((p: Partner) => (
                 <div key={p._id} className="h-12 w-32 relative">
-                  <SanityImage asset={p.logo} alt={p.name} fill className="object-contain" />
+                  {p.logo ? <ContentImage asset={p.logo} alt={p.name} fill imageClassName="object-contain" sizes="128px" /> : <span className="font-display font-semibold text-brand-navy">{p.name}</span>}
                 </div>
               ))}
             </div>
@@ -58,7 +59,7 @@ export default async function PartnershipsPage() {
         )}
 
         {/* Opportunity Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {opportunities.map((opt, i) => (
             <div key={i} className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-brand-lightBlue/5 hover:border-brand-lightBlue/20 transition-all group">
               <div className="w-12 h-12 bg-surface-soft text-brand-darkBlue rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-darkBlue group-hover:text-white transition-all">
@@ -73,20 +74,20 @@ export default async function PartnershipsPage() {
       </div>
 
       {/* Form Section */}
-      <section className="bg-surface-soft py-16 px-6">
+      <section id="partnership-form" className="bg-surface-soft py-12 px-5 sm:px-6 scroll-mt-28">
         <div className="text-center mb-12">
           <h2 className="font-display text-3xl font-semibold text-ink mb-2">Partner With Us</h2>
           <p className="text-base text-ink-muted">
-            Fill out the form and our team will get back to you within 48 hours.
+            Tell us about your organization and the collaboration you have in mind.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
           {/* Left Column */}
-          <div className="bg-white rounded-2xl border border-surface-card shadow-sm p-8">
-            <span className="text-brand-lightBlue text-sm font-semibold uppercase tracking-widest block mb-3">Ready to collaborate?</span>
+          <div className="bg-white rounded-2xl border border-surface-card shadow-sm p-5 sm:p-8 order-2 lg:order-1">
+            <span className="text-brand-darkBlue text-sm font-semibold uppercase tracking-widest block mb-3">Ready to collaborate?</span>
             <p className="text-base text-ink-muted leading-relaxed mb-8">
-              Fill out the form and our team will get back to you within 48 hours to discuss how we can work together.
+              Share your goals, audience, and preferred timing. The team will review your enquiry and discuss possible next steps.
             </p>
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-brand-darkBlue font-semibold font-body">
@@ -105,7 +106,7 @@ export default async function PartnershipsPage() {
           </div>
 
           {/* Right Column */}
-          <div className="bg-white rounded-2xl border border-surface-card shadow-sm p-8">
+          <div className="order-1 lg:order-2 min-w-0">
             <PartnershipForm />
           </div>
         </div>

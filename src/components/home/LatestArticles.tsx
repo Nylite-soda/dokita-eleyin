@@ -5,12 +5,13 @@ import ArticleCard from '@/components/learning/ArticleCard'
 import { Article } from '@/types'
 
 interface LatestArticlesProps {
-  articles: Article[]
+  articles?: Article[]
 }
 
 export default function LatestArticles({ articles }: LatestArticlesProps) {
+  if (!articles?.length) return null
   return (
-    <section className="py-24 bg-white">
+    <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
           <div className="space-y-4">
@@ -28,7 +29,7 @@ export default function LatestArticles({ articles }: LatestArticlesProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {articles?.slice(0, 3).map((article, i) => (
-            <ArticleCard key={i} article={article} />
+            <ArticleCard key={article._id || i} article={article} />
           ))}
         </div>
       </div>

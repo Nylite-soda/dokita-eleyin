@@ -1,0 +1,12 @@
+import 'server-only'
+import { randomUUID } from 'node:crypto'
+import { getPrisma } from './prisma'
+
+type InquiryKind = 'contact' | 'partnership'
+export interface Inquiry { id:string; kind:InquiryKind; name:string; email:string; phone:string; organizationName:string; organizationType?:string; subject:string; message:string; interest:string[]; status:'new'|'read'|'archived'; createdAt:string; updatedAt:string }
+export interface Subscriber { id:string; email:string; status:'active'|'subscribed'|'unsubscribed'; consentedAt:string; createdAt:string; unsubscribedAt:string|null }
+export async function createInquiry(input:{kind:InquiryKind;name:string;email:string;phone?:string;organizationName?:string;subject?:string;message:string;interest?:string[]}) { const id=randomUUID(),now=new Date().toISOString(); await getPrisma().inquiries.create({data:{id,kind:input.kind,name:input.name,email:input.email,phone:input.phone||'',organization_name:input.organizationName||'',subject:input.subject||'',message:input.message,interest:JSON.stringify(input.interest||[]),created_at:now,updated_at:now}}); return id }
+export async function upsertSubscriber(email:string) { const now=new Date().toISOString(); const row=await getPrisma().subscribers.upsert({where:{email},create:{id:randomUUID(),email,status:'subscribed',consented_at:now,created_at:now,updated_at:now},update:{status:'subscribed',consented_at:now,unsubscribed_at:null,updated_at:now}}); return row.id }
+const mapInquiry=(r:Record<string,unknown>):Inquiry=>({id:String(r.id),kind:r.kind as InquiryKind,name:String(r.name),email:String(r.email),phone:String(r.phone||''),organizationName:String(r.organization_name||''),subject:String(r.subject||''),message:String(r.message),interest:JSON.parse(String(r.interest||'[]')),status:r.status as Inquiry['status'],createdAt:String(r.created_at),updatedAt:String(r.updated_at)})
+export async function getInquiries():Promise<Inquiry[]>{return (await getPrisma().inquiries.findMany({orderBy:{created_at:'desc'}})).map(r=>mapInquiry(r as unknown as Record<string,unknown>))}
+export async function getSubscribers():Promise<Subscriber[]>{return (await getPrisma().subscribers.findMany({orderBy:{created_at:'desc'}})).map(r=>{const x=r as unknown as Record<string,unknown>;return {id:String(x.id),email:String(x.email),status:x.status as Subscriber['status'],consentedAt:String(x.consented_at),createdAt:String(x.created_at),unsubscribedAt:x.unsubscribed_at?String(x.unsubscribed_at):null}})}

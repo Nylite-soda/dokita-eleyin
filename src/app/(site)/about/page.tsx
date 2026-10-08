@@ -1,22 +1,23 @@
 // src/app/about/page.tsx
-import { Metadata } from 'next'
+import Link from 'next/link'
 import SectionLabel from '@/components/ui/SectionLabel'
-import { client } from '@/lib/sanity.client'
-import { siteSettingsQuery } from '@/lib/sanity.queries'
+import { getSiteSettings } from '@/lib/content'
+import { pageMetadata } from '@/lib/seo'
 import { IconTarget, IconEye, IconStars, IconMessageHeart, IconShieldHeart, IconUsers } from '@tabler/icons-react'
 import AnimateIn from '@/components/ui/AnimateIn'
 
-export const metadata: Metadata = {
-  title: 'About Us | Dókítà Eléyín',
+export const metadata = pageMetadata({
+  title: 'About Us',
   description: 'Learn about Dókítà Eléyín — a platform dedicated to oral health education, advocacy, and community impact across Nigeria and beyond.',
-}
+  path: '/about',
+})
 
 export const revalidate = 60
 
 export default async function AboutPage() {
-  const settings = await client.fetch(siteSettingsQuery)
+  const settings = await getSiteSettings()
   
-  const iconMap: Record<string, any> = {
+  const iconMap: Record<string, React.ReactNode> = {
     'Empathy': <IconMessageHeart size={20} className="text-brand-darkBlue" />,
     'Excellence': <IconStars size={20} className="text-brand-darkBlue" />,
     'Inclusion': <IconUsers size={20} className="text-brand-darkBlue" />,
@@ -39,13 +40,14 @@ export default async function AboutPage() {
         <div className="max-w-6xl mx-auto px-6 md:px-12">
           <AnimateIn direction="up" delay={0}>
             <div className="max-w-3xl">
-              <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Our Story</span>
+              <SectionLabel>Our Story</SectionLabel>
               <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
                 {settings?.siteTagline || 'Bridging the gap in oral health education.'}
               </h1>
               <p className="text-lg text-ink-muted max-w-2xl leading-relaxed">
                 {settings?.footerDescription || 'Dókítà Eléyín was born from a simple observation: oral health knowledge is often trapped in clinical settings, making it feel complex and inaccessible.'}
               </p>
+              <Link href="/founder" className="inline-flex text-brand-darkBlue font-semibold underline underline-offset-4 mt-6">Meet the founder</Link>
             </div>
           </AnimateIn>
         </div>
@@ -83,17 +85,17 @@ export default async function AboutPage() {
       <section className="bg-surface-soft py-16 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">WHAT DRIVES US</span>
+            <SectionLabel>What drives us</SectionLabel>
             <h2 className="font-display text-3xl font-semibold text-ink">Our Core Values</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((v: any, i: number) => (
+            {values.map((v, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 border border-surface-card shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col items-start text-left">
                 <div className="w-10 h-10 rounded-full bg-brand-lightBlue/10 flex items-center justify-center">
                   {iconMap[v.title] || <IconStars size={20} className="text-brand-darkBlue" />}
                 </div>
                 <h3 className="font-display font-semibold text-lg text-ink mt-4 mb-2">{v.title}</h3>
-                <p className="text-sm text-ink-muted leading-relaxed">{v.description || v.desc}</p>
+                <p className="text-sm text-ink-muted leading-relaxed">{v.description}</p>
               </div>
             ))}
           </div>

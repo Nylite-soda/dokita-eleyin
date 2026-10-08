@@ -1,10 +1,11 @@
 // src/components/ui/RichText.tsx
 import { PortableText, PortableTextComponents } from '@portabletext/react'
-import SanityImage from './SanityImage'
+import ContentImage from './ContentImage'
 import { cn } from '@/lib/utils'
+import { PortableTextContent } from '@/types'
 
 interface RichTextProps {
-  value: any
+  value?: PortableTextContent | null
   className?: string
 }
 
@@ -25,29 +26,31 @@ const components: PortableTextComponents = {
   },
   marks: {
     strong: ({ children }) => <strong className="font-bold text-brand-darkBlue">{children}</strong>,
-    link: ({ children, value }) => (
-      <a 
-        href={value.href} 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="text-brand-lightBlue underline decoration-brand-lightBlue/30 underline-offset-4 hover:decoration-brand-lightBlue transition-all"
+    link: ({ children, value }) => {
+      const href = typeof value?.href === 'string' && /^(https?:\/\/|mailto:|tel:|\/(?!\/)|#)/i.test(value.href) ? value.href : undefined
+      if (!href) return <>{children}</>
+      return (
+      <a
+        href={href}
+        className="text-brand-darkBlue underline underline-offset-4 hover:text-brand-navy transition-colors"
       >
         {children}
       </a>
-    ),
+      )
+    },
   },
   types: {
     image: ({ value }) => (
       <div className="my-10">
-        <SanityImage 
-          asset={value} 
-          alt={value.alt || "Article image"} 
-          className="rounded-2xl shadow-lg" 
-          width={800} 
+        <ContentImage
+          asset={value}
+          alt={value.alt || "Article image"}
+          className="rounded-2xl shadow-lg"
+          width={800}
           height={500}
         />
         {value.caption && (
-          <p className="mt-3 text-center text-sm text-ink/50 font-body">{value.caption}</p>
+          <p className="mt-3 text-center text-sm text-ink-muted font-body">{value.caption}</p>
         )}
       </div>
     ),
@@ -56,7 +59,7 @@ const components: PortableTextComponents = {
 
 export default function RichText({ value, className }: RichTextProps) {
   if (!value) return null
-  
+
   return (
     <div className={cn("prose prose-lg max-w-none font-body", className)}>
       <PortableText value={value} components={components} />

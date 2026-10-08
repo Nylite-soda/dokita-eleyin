@@ -13,7 +13,7 @@ export default function SectionLabel({
   variant = 'darkBlue'
 }: SectionLabelProps) {
   const variants = {
-    lightBlue: "text-brand-lightBlue",
+    lightBlue: "text-brand-darkBlue",
     darkBlue: "text-brand-darkBlue",
     navy: "text-brand-navy"
   }

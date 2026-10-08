@@ -1,8 +1,9 @@
 // src/components/home/NewsletterBanner.tsx
 import NewsletterForm from '@/components/forms/NewsletterForm'
+import { HomepageSettings } from '@/types'
 
 interface NewsletterBannerProps {
-  data?: any
+  data?: HomepageSettings | null
 }
 
 export default function NewsletterBanner({ data }: NewsletterBannerProps) {
@@ -16,8 +17,8 @@ export default function NewsletterBanner({ data }: NewsletterBannerProps) {
         <h2 className="text-display-sm md:text-display-md font-display text-white mb-4">
           {data?.newsletterHeadline || "Get dental tips straight to your inbox."}
         </h2>
-        <p className="text-lg text-blue-100/70 font-body mb-10 max-w-xl mx-auto">
-          {data?.newsletterSubcopy || "Join our community of 2,000+ subscribers and receive simple, actionable oral health advice once a month."}
+        <p className="text-lg text-blue-100 font-body mb-8 max-w-xl mx-auto">
+          {data?.newsletterSubcopy || "Subscribe for simple oral health advice and updates from our community."}
         </p>
         <div className="flex justify-center">
           <NewsletterForm />

@@ -1,118 +1,74 @@
-// src/components/forms/ContactForm.tsx
 'use client'
-import { useState } from 'react'
+
+import { useEffect, useId } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
+import { z } from 'zod'
 import { Button } from '@/components/ui/Button'
+import { contactFormSchema, contactSubjects } from './form-schemas'
+import { useSubmission } from './useSubmission'
 
-const schema = z.object({
-  name: z.string().min(2, 'Name is too short'),
-  email: z.string().email('Invalid email address'),
-  subject: z.string().min(1, 'Please select a subject'),
-  message: z.string().min(10, 'Message is too short'),
-})
-
-type FormData = z.infer<typeof schema>
+type FormData = z.infer<typeof contactFormSchema>
+const controlClass = 'w-full min-w-0 bg-white border border-ink/15 rounded-2xl px-4 sm:px-5 py-3.5 font-body focus:outline-none focus:ring-2 focus:ring-brand-darkBlue shadow-sm'
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
-    resolver: zodResolver(schema)
-  })
+  const id = useId()
+  const { status, error, feedbackRef, submit, startAgain } = useSubmission('/api/contact', 'We could not send your message. Your details are still here; please try again.')
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>({ resolver: zodResolver(contactFormSchema) })
+
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('subject') === 'Consultation') setValue('subject', 'Consultation')
+  }, [setValue])
 
   const onSubmit = async (data: FormData) => {
-    setStatus('loading')
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      if (response.ok) {
-        setStatus('success')
-        reset()
-      } else {
-        setStatus('error')
-      }
-    } catch (err) {
-      setStatus('error')
-    }
+    if (await submit(data)) reset()
   }
+  const fieldProps = (field: keyof FormData) => ({
+    id: `${id}-${field}`,
+    'aria-invalid': Boolean(errors[field]),
+    'aria-describedby': errors[field] ? `${id}-${field}-error` : undefined,
+  })
+  const fieldError = (field: keyof FormData) => errors[field] ? <p id={`${id}-${field}-error`} className="text-sm text-red-800">{errors[field]?.message}</p> : null
 
   return (
-    <div className="bg-surface-soft p-8 md:p-12 rounded-[2.5rem] border border-brand-lightBlue/10 shadow-sm">
+    <div id="contact-form" className="bg-surface-soft p-5 sm:p-8 md:p-10 rounded-3xl border border-brand-darkBlue/10 shadow-sm">
       {status === 'success' ? (
-        <div className="text-center py-12 space-y-4">
-          <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto text-3xl">✓</div>
-          <h3 className="text-2xl font-display font-bold text-brand-navy">Message Sent!</h3>
-          <p className="text-ink/60 font-body">We've received your message and will get back to you soon.</p>
-          <Button variant="outline" onClick={() => setStatus('idle')}>Send another message</Button>
+        <div ref={feedbackRef} role="status" tabIndex={-1} className="text-center py-8 space-y-4 focus:outline-none">
+          <h3 className="text-2xl font-display font-bold text-brand-navy">Message received</h3>
+          <p className="text-ink/80 font-body">Thank you for getting in touch. Our team will reply using the email address you provided.</p>
+          <Button variant="outline" onClick={startAgain}>Send another message</Button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form noValidate onSubmit={handleSubmit(onSubmit)} aria-busy={status === 'loading'} className="space-y-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="space-y-2">
-              <label className="text-sm font-bold font-display text-brand-navy ml-1">Your Name</label>
-              <input 
-                {...register('name')}
-                placeholder="Name" 
-                className="w-full bg-white border-none rounded-2xl px-8 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm"
-              />
-              {errors.name && <p className="text-xs text-red-500 ml-1">{errors.name.message}</p>}
+              <label htmlFor={`${id}-name`} className="text-sm font-bold text-brand-navy">Your name</label>
+              <input {...register('name')} {...fieldProps('name')} autoComplete="name" required maxLength={120} placeholder="Your name" className={controlClass} />
+              {fieldError('name')}
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-bold font-display text-brand-navy ml-1">Your Email</label>
-              <input 
-                {...register('email')}
-                placeholder="Email" 
-                className="w-full bg-white border-none rounded-2xl px-8 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm"
-              />
-              {errors.email && <p className="text-xs text-red-500 ml-1">{errors.email.message}</p>}
+              <label htmlFor={`${id}-email`} className="text-sm font-bold text-brand-navy">Your email</label>
+              <input {...register('email')} {...fieldProps('email')} type="email" autoComplete="email" required maxLength={254} placeholder="you@example.com" className={controlClass} />
+              {fieldError('email')}
             </div>
           </div>
-          
           <div className="space-y-2">
-            <label className="text-sm font-bold font-display text-brand-navy ml-1">Subject</label>
-            <select 
-              {...register('subject')}
-              className="w-full bg-white border-none rounded-2xl px-8 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm appearance-none"
-            >
-              <option value="">Select a subject</option>
-              <option value="General Enquiry">General Enquiry</option>
-              <option value="Media Enquiry">Media Enquiry</option>
-              <option value="Partnership">Partnership</option>
-              <option value="Speaking Engagement">Speaking Engagement</option>
-              <option value="Other">Other</option>
+            <label htmlFor={`${id}-subject`} className="text-sm font-bold text-brand-navy">Subject</label>
+            <select {...register('subject')} {...fieldProps('subject')} required className={controlClass} defaultValue="">
+              <option value="" disabled>Select a subject</option>
+              {contactSubjects.map(subject => <option key={subject} value={subject}>{subject}</option>)}
             </select>
-            {errors.subject && <p className="text-xs text-red-500 ml-1">{errors.subject.message}</p>}
+            {fieldError('subject')}
           </div>
-
           <div className="space-y-2">
-            <label className="text-sm font-bold font-display text-brand-navy ml-1">Your Message</label>
-            <textarea 
-              {...register('message')}
-              rows={5} 
-              placeholder="How can we help you?"
-              className="w-full bg-white border-none rounded-2xl px-8 py-4 font-body focus:ring-2 focus:ring-brand-lightBlue shadow-sm resize-none"
-            />
-            {errors.message && <p className="text-xs text-red-500 ml-1">{errors.message.message}</p>}
+            <label htmlFor={`${id}-message`} className="text-sm font-bold text-brand-navy">Your message</label>
+            <textarea {...register('message')} {...fieldProps('message')} required maxLength={5000} rows={5} placeholder="How can we help you?" className={`${controlClass} resize-y`} />
+            {fieldError('message')}
           </div>
-
-          <Button 
-            type="submit" 
-            className="w-full py-4 rounded-2xl"
-            disabled={status === 'loading'}
-          >
-            {status === 'loading' ? 'Sending...' : 'Send Message'}
-          </Button>
-          
-          {status === 'error' && (
-            <p className="text-center text-sm text-red-500 font-body">Something went wrong. Please try again.</p>
-          )}
+          {status === 'error' && <div ref={feedbackRef} role="alert" tabIndex={-1} className="rounded-xl bg-red-50 p-4 text-sm text-red-800 focus:outline-none">{error}</div>}
+          <Button type="submit" className="w-full py-3.5" disabled={status === 'loading'}>{status === 'loading' ? 'Sending…' : 'Send message'}</Button>
         </form>
       )}
     </div>
   )
 }
-

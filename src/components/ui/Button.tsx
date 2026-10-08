@@ -13,7 +13,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button'
     const variants = {
-      primary: 'bg-brand-darkBlue text-white hover:bg-opacity-90',
+      primary: 'bg-brand-darkBlue text-white hover:bg-brand-navy',
       secondary: 'bg-brand-lightBlue text-ink hover:bg-white',
       ghost: 'bg-transparent border border-white text-white hover:bg-white hover:text-brand-darkBlue',
       outline: 'bg-transparent border border-brand-darkBlue text-brand-darkBlue hover:bg-brand-darkBlue hover:text-white',

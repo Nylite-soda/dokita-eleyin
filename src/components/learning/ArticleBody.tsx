@@ -1,8 +1,9 @@
 // src/components/learning/ArticleBody.tsx
 import RichText from '@/components/ui/RichText'
+import { PortableTextContent } from '@/types'
 
 interface ArticleBodyProps {
-  content: any
+  content?: PortableTextContent
 }
 
 export default function ArticleBody({ content }: ArticleBodyProps) {

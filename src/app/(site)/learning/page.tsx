@@ -1,17 +1,17 @@
 // src/app/learning/page.tsx
-import { client } from '@/lib/sanity.client'
-import { allArticlesQuery } from '@/lib/sanity.queries'
-import { groq } from 'next-sanity'
+import { getArticles, getCategories } from '@/lib/content'
+import { pageMetadata } from '@/lib/seo'
 import SectionLabel from '@/components/ui/SectionLabel'
 import LearningHubClient from './LearningHubClient'
 import AnimateIn from '@/components/ui/AnimateIn'
 
 export const revalidate = 60
+export const metadata = pageMetadata({ title: 'Learning Hub', description: 'Explore dental health articles, guides, and answers to common oral health questions.', path: '/learning' })
 
 export default async function LearningHubPage() {
   const [articles, categories] = await Promise.all([
-    client.fetch(allArticlesQuery),
-    client.fetch(groq`*[_type == "category"] | order(name asc)`)
+    getArticles(),
+    getCategories()
   ])
 
   return (
@@ -19,7 +19,7 @@ export default async function LearningHubPage() {
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <AnimateIn direction="up" delay={0}>
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Learning Hub</span>
+            <SectionLabel>Learning Hub</SectionLabel>
             <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
               Dental tips for a lifetime of healthy smiles.
             </h1>

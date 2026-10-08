@@ -1,105 +1,40 @@
-// src/app/founder/page.tsx
-import { Metadata } from 'next'
-import { client } from '@/lib/sanity.client'
-import { founderQuery } from '@/lib/sanity.queries'
+import Link from 'next/link'
+import { getFounder } from '@/lib/content'
+import { getSocialLinks } from '@/lib/social'
+import { pageMetadata } from '@/lib/seo'
 import SectionLabel from '@/components/ui/SectionLabel'
 import RichText from '@/components/ui/RichText'
-import SanityImage from '@/components/ui/SanityImage'
-import { IconBrandInstagram, IconBrandTiktok, IconBrandLinkedin, IconBrandTwitter } from '@tabler/icons-react'
-import { Founder } from '@/types'
+import ContentImage from '@/components/ui/ContentImage'
+import EmptyState from '@/components/ui/EmptyState'
+import { Button } from '@/components/ui/Button'
 
-export const metadata: Metadata = {
-  title: 'Meet the Founder | Dókítà Eléyín',
-  description: 'Dr. Adamaigbo Ibukunoluwa — Dental Surgeon, Public Health Professional, and founder of Dókítà Eléyín.',
-}
-
+export const metadata = pageMetadata({ title: 'Meet the Founder', description: 'Meet the founder of Dókítà Eléyín and learn about the purpose behind our oral health education.', path: '/founder' })
 export const revalidate = 60
 
 export default async function FounderPage() {
-  const founder: Founder = await client.fetch(founderQuery)
-
-  if (!founder) return <div className="pt-40 text-center">Founder information not available.</div>
-
-  const socialIcons: Record<string, React.ReactNode> = {
-    instagram: <IconBrandInstagram />,
-    tiktok: <IconBrandTiktok />,
-    linkedin: <IconBrandLinkedin />,
-    twitter: <IconBrandTwitter />,
-  }
+  const founder = await getFounder()
+  if (!founder) return <div className="pt-32 pb-16"><EmptyState title="Meet the team" message="The founder profile has not been published yet. Our team can answer questions about our work and consultation options." actionLabel="Contact the team" actionHref="/contact" /></div>
+  const socials = getSocialLinks(founder.socialLinks)
+  const hasBio = !!founder.bio?.length || !!founder.shortBio
 
   return (
-    <div className="pt-20">
-      {/* Hero Portrait */}
-      <section className="relative h-[80vh] min-h-[600px] w-full overflow-hidden">
-        <SanityImage 
-          asset={founder.photo} 
-          alt={founder.fullName}
-          fill
-          className="object-top"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full p-8 md:p-16">
-          <div className="max-w-6xl mx-auto">
-            <h1 className="text-display-lg md:text-display-xl font-display text-white mb-4">
-              {founder.fullName}
-            </h1>
-            <div className="flex flex-wrap gap-3">
-              {founder.credentials?.map((c: string, i: number) => (
-                <span key={i} className="bg-brand-lightBlue text-brand-navy px-8 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
-                  {c}
-                </span>
-              ))}
-            </div>
+    <div className="pt-32 pb-16 bg-white min-h-screen">
+      <div className="max-w-6xl mx-auto px-6 md:px-12">
+        <section className={`grid gap-10 items-center ${founder.photo ? 'lg:grid-cols-2' : 'max-w-3xl'}`}>
+          <div className="space-y-6">
+            <SectionLabel>Meet the Founder</SectionLabel>
+            <h1 className="text-display-md font-display text-brand-navy leading-tight">{founder.fullName}</h1>
+            {!!founder.credentials?.length && <ul className="flex flex-wrap gap-2" aria-label="Qualifications">{founder.credentials.map(credential => <li key={credential} className="bg-surface-soft text-brand-darkBlue px-4 py-2 rounded-full text-sm font-semibold">{credential}</li>)}</ul>}
+            {founder.shortBio && <p className="text-lg text-ink-muted leading-relaxed">{founder.shortBio}</p>}
+            {founder.featuredQuote && <blockquote className="border-l-4 border-brand-darkBlue pl-5 text-xl font-display text-brand-navy leading-relaxed">{founder.featuredQuote}</blockquote>}
+            <Button asChild><Link href="/contact">Contact the team</Link></Button>
           </div>
-        </div>
-      </section>
-
-      {/* Bio Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-            <div className="lg:col-span-8">
-              <SectionLabel className="mb-6">About the Founder</SectionLabel>
-              <div className="prose prose-xl font-body text-ink/80">
-                <RichText value={founder.bio} />
-              </div>
-            </div>
-            
-            <div className="lg:col-span-4 space-y-12">
-              {/* Featured Quote */}
-              {founder.featuredQuote && (
-                <div className="bg-surface-soft p-10 rounded-[2.5rem] relative">
-                  <span className="text-8xl font-display text-brand-lightBlue/20 absolute top-4 left-4">"</span>
-                  <p className="text-xl font-display font-medium text-brand-navy italic relative z-10">
-                    {founder.featuredQuote}
-                  </p>
-                </div>
-              )}
-
-              {/* Social Links */}
-              <div className="space-y-6">
-                <h3 className="font-display text-xl font-bold text-brand-navy">Connect with Dr. Ibukun</h3>
-                <div className="flex gap-4">
-                  {(Object.entries(founder.socialLinks || {}) as [string, string][]).map(([platform, url]) => (
-                    url && (
-                      <a 
-                        key={platform}
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 rounded-2xl bg-brand-darkBlue text-white flex items-center justify-center hover:bg-brand-lightBlue hover:text-brand-navy transition-all"
-                      >
-                        {socialIcons[platform]}
-                      </a>
-                    )
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+          {founder.photo && <ContentImage asset={founder.photo} alt={founder.photo.alt || founder.fullName} width={600} height={750} className="rounded-3xl max-w-md" imageClassName="object-top" sizes="(max-width: 1024px) 100vw, 40vw" loading="eager" />}
+        </section>
+        {!!founder.bio?.length && <section className="mt-12 max-w-3xl"><h2 className="text-2xl font-display text-brand-navy mb-6">About {founder.fullName}</h2><RichText value={founder.bio} /></section>}
+        {!hasBio && <p className="mt-8 max-w-2xl text-ink-muted leading-relaxed">For information about the founder&apos;s work or speaking enquiries, please contact the team.</p>}
+        {!!socials.length && <section className="mt-10"><h2 className="text-xl font-display font-semibold text-brand-navy mb-4">Connect with {founder.fullName}</h2><div className="flex flex-wrap gap-4">{socials.map(social => <a key={social.platform} href={social.url} target="_blank" rel="noopener noreferrer" className="text-brand-darkBlue font-semibold underline underline-offset-4">{social.label}<span className="sr-only"> (opens in a new tab)</span></a>)}</div></section>}
+      </div>
     </div>
   )
 }
-

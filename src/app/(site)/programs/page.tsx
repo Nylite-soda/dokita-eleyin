@@ -1,29 +1,29 @@
 // src/app/programs/page.tsx
-import { Metadata } from 'next'
-import { client } from '@/lib/sanity.client'
-import { programsQuery } from '@/lib/sanity.queries'
+import { getPrograms } from '@/lib/content'
+import { pageMetadata } from '@/lib/seo'
 import SectionLabel from '@/components/ui/SectionLabel'
 import RichText from '@/components/ui/RichText'
-import SanityImage from '@/components/ui/SanityImage'
+import ContentImage from '@/components/ui/ContentImage'
 import { IconCircleCheck, IconCalendar } from '@tabler/icons-react'
 import EmptyState from '@/components/ui/EmptyState'
-import { Program } from '@/types'
 import AnimateIn from '@/components/ui/AnimateIn'
 
-export const metadata: Metadata = {
-  title: 'Programs | Dókítà Eléyín',
-  description: 'Explore our oral health programs — school initiatives, community outreach, and digital education campaigns.',
-}
+export const metadata = pageMetadata({
+  title: 'Programs',
+  description: 'Explore our oral health programs â€” school initiatives, community outreach, and digital education campaigns.',
+  path: '/programs',
+})
 
 export const revalidate = 60
 
 export default async function ProgramsPage() {
-  const programs: Program[] = await client.fetch(programsQuery)
+  const programs = await getPrograms()
 
   const programTypes = [
     { id: 'school', label: 'School Initiatives' },
     { id: 'outreach', label: 'Community Outreach' },
     { id: 'digital', label: 'Digital Education' },
+    { id: 'other', label: 'More Programs' },
   ]
 
   const hasContent = programs && programs.length > 0
@@ -33,7 +33,7 @@ export default async function ProgramsPage() {
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <AnimateIn direction="up" delay={0}>
           <div className="max-w-3xl mb-16">
-            <span className="text-xs tracking-widest uppercase font-semibold text-brand-lightBlue block mb-3">Our Programs</span>
+            <SectionLabel>Our Programs</SectionLabel>
             <h1 className="text-4xl lg:text-5xl font-display font-semibold text-ink leading-tight mb-4">
               Structured initiatives for lasting dental health.
             </h1>
@@ -41,17 +41,17 @@ export default async function ProgramsPage() {
         </AnimateIn>
 
         {!hasContent ? (
-          <EmptyState 
-            title="Programs are being finalized" 
-            message="We're currently updating our program details for the upcoming session. Check back soon to see how you can get involved."
+          <EmptyState
+            title="Explore program opportunities"
+            message="No program details have been published yet. Tell us about your school or community to discuss an oral health education session."
             icon={<IconCalendar size={32} />}
             actionLabel="Contact us for info"
             actionHref="/contact"
           />
         ) : (
-          <div className="space-y-32">
+          <div className="space-y-16">
             {programTypes.map((type) => {
-              const filteredPrograms = programs.filter((p: Program) => p.type === type.id)
+              const filteredPrograms = programs.filter(p => type.id === 'other' ? !['school', 'outreach', 'digital'].includes(p.type || '') : p.type === type.id)
               if (filteredPrograms.length === 0) return null
 
               return (
@@ -62,9 +62,9 @@ export default async function ProgramsPage() {
                     </h2>
                   </div>
 
-                  <div className="space-y-24">
-                    {filteredPrograms.map((program: any) => (
-                      <div key={program._id} className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                  <div className="space-y-12">
+                    {filteredPrograms.map(program => (
+                      <div key={program._id} className={`grid grid-cols-1 gap-8 items-start ${program.images?.length ? 'lg:grid-cols-2' : 'max-w-3xl'}`}>
                         <div className="space-y-8">
                           <div>
                             <h3 className="text-3xl font-display font-bold text-brand-navy mb-4">
@@ -74,8 +74,8 @@ export default async function ProgramsPage() {
                               {program.shortDescription}
                             </p>
                           </div>
-                          
-                          <div className="space-y-4">
+
+                          {!!program.activities?.length && <div className="space-y-4">
                             <h4 className="font-display font-bold text-ink uppercase tracking-wider text-sm">Key Activities</h4>
                             <ul className="space-y-3">
                               {program.activities?.map((activity: string, idx: number) => (
@@ -85,7 +85,7 @@ export default async function ProgramsPage() {
                                 </li>
                               ))}
                             </ul>
-                          </div>
+                          </div>}
 
                           <div className="prose prose-blue font-body text-ink/60">
                             <RichText value={program.fullDescription} />
@@ -93,13 +93,14 @@ export default async function ProgramsPage() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                          {program.images?.slice(0, 4).map((img: any, idx: number) => (
+                          {program.images?.slice(0, 4).map((img, idx) => (
                             <div key={idx} className={idx === 0 ? "col-span-2 aspect-video" : "aspect-square"}>
-                              <SanityImage 
-                                asset={img} 
+                              <ContentImage
+                                asset={img}
                                 alt={program.name}
                                 className="rounded-3xl shadow-sm h-full"
                                 fill
+                                sizes="(max-width: 1024px) 100vw, 50vw"
                               />
                             </div>
                           ))}

@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dokita Eleyin
 
-## Getting Started
+Next.js website with first-party CMS, booking, inbox, newsletter, and admin tools. Prisma ORM 7.10 connects the app to Prisma Postgres. Runtime queries use the pooled URL; Prisma CLI migrations use the direct URL.
 
-First, run the development server:
+## Local setup
+
+1. Copy `.env.example` to `.env.local`. Set `NEXT_PUBLIC_SITE_URL`, `DATABASE_URL` (pooled Prisma Postgres URL), and `DIRECT_URL` (direct Prisma Postgres URL).
+2. Install dependencies and apply migrations:
+
+   ```bash
+   npm install
+   npm run prisma:deploy
+   npm run prisma:generate
+   ```
+
+3. Set `ADMIN_EMAIL`, `ADMIN_PASSWORD` (12–128 characters), and optional `ADMIN_NAME`, then run:
+
+   ```bash
+   npm run admin:create
+   npm run dev
+   ```
+
+The public site runs at `http://localhost:3000`; the admin workspace is at `/admin/login`. Remove the bootstrap password from the environment after creating the account. To recover an existing account using trusted server access, use `npm run admin:create -- --reset`; this resets its password, elevates it to admin, and revokes its sessions.
+
+## Existing local SQLite data
+
+The original `data/site.sqlite` and `data/media` remain as a local rollback copy. To import a different legacy SQLite database into an already-migrated, empty Prisma Postgres database, set `LEGACY_SQLITE_PATH` if needed, then run:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run data:import-sqlite -- --confirm-import
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The importer copies application rows in foreign-key order, stores image bytes with their media records, skips conflicting rows, reports counts only, and leaves the SQLite source unchanged. The current Prisma database has already received this workspace’s six CMS documents, booking configuration, and one image; do not rerun the import against it.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The separate `prisma/schema.sqlite.prisma` and `prisma/migrations-sqlite` exist only for isolated tests and legacy local data. `npm test` uses disposable SQLite databases and never connects to the saved Prisma URLs.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Content and backups
 
-## Learn More
+The one-time Sanity importer can still export content from an old Sanity project. Set its legacy project/dataset values and optional read token in `.env.local`, review the export with `npm run content:import -- --dry-run`, then run `npm run content:import` to import it into Prisma Postgres.
 
-To learn more about Next.js, take a look at the following resources:
+The `scripts/backup.mjs` utility backs up only the legacy SQLite source and its local media directory. Use Prisma Console’s database backup tools for the active PostgreSQL database. Keep backups containing client or staff information in restricted storage.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+In Vercel, set `DATABASE_URL` and `DIRECT_URL` as server-only environment variables, along with the site URL and any payment/email secrets. Apply pending migrations with `npm run prisma:deploy` before deploying code that depends on them. CMS image bytes are stored in PostgreSQL, so they persist across Vercel function instances and deployments.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Booking services, hours, blackouts, content, users, messages, and subscribers are managed in `/admin`. Configure optional Paystack and email adapters in the server environment.

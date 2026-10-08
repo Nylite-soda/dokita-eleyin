@@ -1,0 +1,228 @@
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["partialIndexes"]
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model audit_log {
+  id         String @id
+  user_id    String?
+  action     String
+  target_id  String?
+  details    String  @default("{}")
+  created_at String
+  users      users?  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model booking_blackouts {
+  id       String @id
+  start_at String
+  end_at   String
+  reason   String  @default("")
+}
+
+model booking_configuration {
+  id                        Int    @id @default(autoincrement())
+  min_notice_hours          Int    @default(24)
+  window_days               Int    @default(90)
+  cancellation_notice_hours Int    @default(0)
+  cancellation_policy       String @default("")
+}
+
+model booking_hours {
+  weekday Int
+  start   String
+  end     String
+
+  @@id([weekday, start])
+}
+
+model booking_outbox {
+  id         String @id
+  event_key  String
+  booking_id String
+  email      String
+  subject    String
+  html       String
+  status     String   @default("pending")
+  attempts   Int      @default(0)
+  created_at String
+  claimed_at String?
+  sent_at    String?
+  event_type String   @default("")
+  start_at   String?
+  bookings   bookings @relation(fields: [booking_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([event_key], map: "booking_outbox_event_key_key")
+}
+
+model booking_payment_events {
+  id         String @id
+  created_at String
+}
+
+model booking_services {
+  id               String @id
+  name             String
+  description      String     @default("")
+  duration_minutes Int
+  buffer_minutes   Int
+  price_ngn        Int?
+  deposit_ngn      Int?
+  active           Int        @default(0)
+  bookings         bookings[]
+}
+
+model bookings {
+  id                      String @id
+  service_id              String
+  service_name            String
+  name                    String
+  email                   String
+  phone                   String           @default("")
+  notes                   String           @default("")
+  timezone                String
+  start_at                String
+  end_at                  String
+  occupied_until          String
+  status                  String
+  payment_status          String
+  price_ngn               Int
+  due_ngn                 Int
+  paid_ngn                Int              @default(0)
+  token_hash              String
+  hold_expires_at         String?
+  payment_reference       String?
+  payment_url             String?
+  payment_init_started_at String?
+  payment_transaction_id  String?
+  refund_id               String?
+  idempotency_key         String?
+  request_hash            String?
+  created_at              String
+  updated_at              String
+  booking_outbox          booking_outbox[]
+  booking_services        booking_services @relation(fields: [service_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([start_at, occupied_until, status], map: "bookings_period")
+  @@unique([token_hash], map: "bookings_token_hash_key")
+  @@unique([payment_reference], map: "bookings_payment_reference_key")
+  @@unique([idempotency_key], map: "bookings_idempotency_key_key")
+}
+
+model cms_documents {
+  id                                    String @id
+  type                                  String
+  slug                                  String?
+  status                                String          @default("draft")
+  data                                  String
+  published_data                        String?
+  created_at                            String
+  updated_at                            String
+  published_at                          String?
+  created_by                            String?
+  updated_by                            String?
+  users_cms_documents_updated_byTousers users?          @relation("cms_documents_updated_byTousers", fields: [updated_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users_cms_documents_created_byTousers users?          @relation("cms_documents_created_byTousers", fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cms_revisions                         cms_revisions[]
+
+  @@unique([type, slug], map: "cms_slug", where: raw("slug IS NOT NULL AND slug != ''"))
+  @@index([type, status, published_at], map: "cms_public")
+}
+
+model cms_revisions {
+  id            String @id
+  document_id   String
+  data          String
+  status        String
+  user_id       String?
+  created_at    String
+  users         users?        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cms_documents cms_documents @relation(fields: [document_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([document_id, created_at], map: "cms_revision_document")
+}
+
+model inquiries {
+  id                String @id
+  kind              String
+  name              String
+  email             String
+  phone             String  @default("")
+  organization_name String  @default("")
+  subject           String  @default("")
+  message           String
+  interest          String  @default("[]")
+  status            String  @default("new")
+  created_at        String
+  updated_at        String
+
+  @@index([status, created_at], map: "inquiries_status")
+}
+
+model media {
+  id           String @id
+  filename     String
+  storage_name String
+  mime_type    String
+  size         Int
+  content      Bytes?
+  alt          String  @default("")
+  uploaded_by  String?
+  created_at   String
+  users        users?  @relation(fields: [uploaded_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([storage_name], map: "media_storage_name_key")
+}
+
+model rate_limits {
+  key      String @id
+  hits     Int
+  reset_at Int
+}
+
+model sessions {
+  token_hash String @id
+  user_id    String
+  created_at String
+  expires_at String
+  users      users   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([expires_at], map: "session_expiry")
+}
+
+model subscribers {
+  id              String @id
+  email           String
+  status          String  @default("subscribed")
+  consented_at    String
+  created_at      String
+  unsubscribed_at String?
+  updated_at      String
+
+  @@index([status, created_at], map: "subscribers_status")
+  @@unique([email], map: "subscribers_email_key")
+}
+
+model users {
+  id                                            String @id
+  email                                         String
+  name                                          String
+  password_hash                                 String
+  role                                          String
+  active                                        Int             @default(1)
+  created_at                                    String
+  updated_at                                    String
+  audit_log                                     audit_log[]
+  cms_documents_cms_documents_updated_byTousers cms_documents[] @relation("cms_documents_updated_byTousers")
+  cms_documents_cms_documents_created_byTousers cms_documents[] @relation("cms_documents_created_byTousers")
+  cms_revisions                                 cms_revisions[]
+  media                                         media[]
+  sessions                                      sessions[]
+
+  @@unique([email], map: "users_email_key")
+}

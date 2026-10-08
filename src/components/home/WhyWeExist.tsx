@@ -3,9 +3,10 @@ import SectionLabel from '@/components/ui/SectionLabel'
 import { IconBook, IconShieldCheck, IconHeart } from '@tabler/icons-react'
 
 import Link from 'next/link'
+import { HomepageSettings } from '@/types'
 
 interface WhyWeExistProps {
-  data?: any
+  data?: HomepageSettings | null
 }
 
 export default function WhyWeExist({ data }: WhyWeExistProps) {
@@ -28,7 +29,7 @@ export default function WhyWeExist({ data }: WhyWeExistProps) {
   ]
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="space-y-6">
@@ -36,7 +37,7 @@ export default function WhyWeExist({ data }: WhyWeExistProps) {
             <h2 className="text-display-md font-display text-brand-navy leading-tight">
               {data?.whyWeExistTitle || "Making oral health knowledge simple, accessible, and actionable."}
             </h2>
-            <p className="text-lg text-ink/50 font-body leading-relaxed max-w-xl">
+            <p className="text-lg text-ink-muted font-body leading-relaxed max-w-xl">
               {data?.whyWeExistBody || "We believe that every individual deserves the knowledge and tools to maintain a healthy smile. Through community engagement and clear education, we're building a future where oral health is a priority, not an afterthought."}
             </p>
             <div className="pt-4">
@@ -44,7 +45,7 @@ export default function WhyWeExist({ data }: WhyWeExistProps) {
                 href="/impact" 
                 className="inline-flex items-center gap-2 text-brand-darkBlue font-bold font-body hover:text-brand-lightBlue transition-all group"
               >
-                See our full impact report
+                Explore our community impact
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </div>

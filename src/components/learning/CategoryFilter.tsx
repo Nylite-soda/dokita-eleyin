@@ -1,9 +1,10 @@
 // src/components/learning/CategoryFilter.tsx
 'use client'
 import { cn } from '@/lib/utils'
+import { Category } from '@/types'
 
 interface CategoryFilterProps {
-  categories: any[]
+  categories: Category[]
   activeCategory: string | null
   onCategoryChange: (slug: string | null) => void
 }
@@ -14,8 +15,10 @@ export default function CategoryFilter({
   onCategoryChange 
 }: CategoryFilterProps) {
   return (
-    <div className="flex flex-wrap justify-center gap-3 mb-12">
+    <div role="group" aria-label="Filter articles by category" className="flex flex-wrap justify-center gap-3 mb-12">
       <button
+        type="button"
+        aria-pressed={activeCategory === null}
         onClick={() => onCategoryChange(null)}
         className={cn(
           "px-8 py-2 rounded-full text-sm font-semibold transition-all",
@@ -29,6 +32,8 @@ export default function CategoryFilter({
       
       {categories?.map((cat) => (
         <button
+          type="button"
+          aria-pressed={activeCategory === cat.slug.current}
           key={cat._id}
           onClick={() => onCategoryChange(cat.slug.current)}
           className={cn(

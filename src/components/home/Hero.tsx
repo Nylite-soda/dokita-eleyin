@@ -1,23 +1,20 @@
 // src/components/home/Hero.tsx
-'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/Button'
-import AnimatedCounter from '@/components/ui/AnimatedCounter'
-import SanityImage from '@/components/ui/SanityImage'
-import SectionLabel from '@/components/ui/SectionLabel'
-import { ImpactStat } from '@/types'
+import ContentImage from '@/components/ui/ContentImage'
+import { HomepageSettings } from '@/types'
 
 interface HeroProps {
-  data: any
-  stats: ImpactStat[]
+  data: HomepageSettings | null
 }
 
-export default function Hero({ data, stats }: HeroProps) {
+export default function Hero({ data }: HeroProps) {
   return (
-    <section className="relative min-h-[90vh] flex items-center bg-brand-darkBlue text-white overflow-hidden pt-32 pb-20">
+    <section className="relative flex items-center bg-brand-darkBlue text-white overflow-hidden pt-32 pb-16">
       {/* Background Symbol Overlay */}
       <div className="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 opacity-10 pointer-events-none">
-        <img 
+        <Image width={600} height={600}
           src="/logos/icon-symbol-white.svg" 
           alt="" 
           className="w-[600px] h-[600px]"
@@ -35,39 +32,28 @@ export default function Hero({ data, stats }: HeroProps) {
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
+                <Button variant="secondary" size="lg" className="px-8 py-4" asChild>
               <Link href={data?.heroPrimaryCTA?.link || '/consultation'}>
-                <Button variant="secondary" size="lg" className="px-8 py-4">
                   {data?.heroPrimaryCTA?.label || "Book a Consultation"}
-                </Button>
               </Link>
+                </Button>
+                <Button variant="ghost" size="lg" className="px-8 py-4" asChild>
               <Link href={data?.heroSecondaryCTA?.link || '/about'}>
-                <Button variant="ghost" size="lg" className="px-8 py-4">
                   {data?.heroSecondaryCTA?.label || "Learn About Us"}
-                </Button>
               </Link>
+                </Button>
             </div>
 
-            {/* Social Proof Stats */}
-            <div className="pt-12 grid grid-cols-2 sm:grid-cols-3 gap-8 border-t border-white/10">
-              {stats?.slice(0, 3).map((stat, i) => (
-                <div key={i} className="text-center lg:text-left">
-                  <div className="text-3xl font-display font-bold text-brand-lightBlue">
-                    <AnimatedCounter value={stat.value} />+
-                  </div>
-                  <div className="text-sm text-blue-100/60 font-body uppercase tracking-wider">{stat.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
           
           <div className="lg:col-span-5 w-full">
             <div className="py-8 lg:py-0 flex items-center justify-center">
               <div className="aspect-[4/5] w-full max-w-md lg:max-w-none max-h-[70vh] lg:max-h-[85vh] rounded-[3rem] overflow-hidden border-8 border-white/5 relative shadow-2xl">
                 {data?.heroImage?.asset ? (
-                  <SanityImage asset={data.heroImage} fill alt="Hero image" />
+                  <ContentImage asset={data.heroImage} fill alt={data.heroImage.alt || 'Dókítà Eléyín founder'} imageClassName="object-top" sizes="(max-width: 1024px) 80vw, 40vw" loading="eager" fetchPriority="high" />
                 ) : (
                   <div className="w-full h-full bg-brand-navy/30 flex items-center justify-center text-white/10">
-                    <img src="/logos/icon-symbol-white.svg" alt="" className="w-32 opacity-20" />
+                    <Image src="/logos/icon-symbol-white.svg" alt="" width={128} height={128} className="w-32 opacity-20" />
                   </div>
                 )}
               </div>
