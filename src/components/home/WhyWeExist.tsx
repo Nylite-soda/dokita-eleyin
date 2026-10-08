@@ -53,7 +53,7 @@ export default function WhyWeExist({ data }: WhyWeExistProps) {
 
           <div className="grid grid-cols-1 gap-6">
             {values.map((v, i) => (
-              <div key={i} className="flex items-start gap-6 p-8 rounded-3xl bg-surface-card border border-brand-lightBlue/10 hover:border-brand-lightBlue/30 transition-all">
+              <div key={i} className="motion-card flex items-start gap-6 p-8 rounded-3xl bg-surface-card border border-brand-lightBlue/10 hover:border-brand-lightBlue/30 transition-all">
                 <div className="shrink-0">{v.icon}</div>
                 <div>
                   <h3 className="text-xl font-display font-bold text-brand-navy mb-1">{v.title}</h3>

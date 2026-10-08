@@ -39,7 +39,7 @@ export default function ImpactTeaser({ stats }: ImpactTeaserProps) {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
           {stats.slice(0, 3).map((s) => (
-            <div key={s._id} className="bg-white p-6 rounded-3xl shadow-sm text-center border border-brand-lightBlue/10">
+            <div key={s._id} className="motion-card bg-white p-6 rounded-3xl shadow-sm text-center border border-brand-lightBlue/10">
               <div className="mx-auto w-14 h-14 flex items-center justify-center rounded-2xl bg-brand-lightBlue/10 text-brand-darkBlue mb-6 group-hover:bg-brand-darkBlue group-hover:text-white transition-colors">
                 {(s.icon && iconMap[s.icon]) || <IconChecklist size={28} />}
               </div>

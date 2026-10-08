@@ -62,7 +62,7 @@ export default async function PartnershipsPage() {
         {/* Opportunity Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {opportunities.map((opt, i) => (
-            <div key={i} className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-brand-lightBlue/5 hover:border-brand-lightBlue/20 transition-all group">
+            <div key={i} className="motion-card bg-white p-8 rounded-[2.5rem] shadow-sm border border-brand-lightBlue/5 hover:border-brand-lightBlue/20 transition-all group">
               <div className="w-12 h-12 bg-surface-soft text-brand-darkBlue rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-darkBlue group-hover:text-white transition-all">
                 {opt.icon}
               </div>

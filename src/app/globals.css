@@ -94,15 +94,37 @@
   }
 }
 
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .section-entry {
-      animation: section-entry ease-out both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 25%;
-    }
-    @keyframes section-entry { from { transform: translateY(8px); } to { transform: translateY(0); } }
+html { scroll-behavior: smooth; scroll-padding-top: 6.5rem; }
+:where([id]) { scroll-margin-top: 6.5rem; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .section-entry[data-motion="pending"] {
+    opacity: 0;
+    transform: translate3d(0, 1.25rem, 0) scale(.99);
+    transition: opacity 650ms cubic-bezier(.2,.75,.25,1), transform 650ms cubic-bezier(.2,.75,.25,1);
+    will-change: opacity, transform;
   }
+  .section-entry[data-motion="visible"] { opacity: 1; transform: translate3d(0,0,0) scale(1); }
+  .motion-card {
+    transition: transform 320ms cubic-bezier(.2,.75,.25,1), box-shadow 320ms ease, border-color 320ms ease;
+  }
+  .motion-card:hover { transform: translate3d(0,-5px,0); box-shadow: 0 18px 38px rgb(26 54 102 / .12); }
+  .motion-card:focus-within { transform: translate3d(0,-3px,0); }
+  .faq-item > summary { list-style: none; }
+  .faq-item > summary::-webkit-details-marker { display: none; }
+  .faq-item > summary::after { content: '+'; float: right; margin-left: 1rem; color: #2e5ca9; font-size: 1.35em; line-height: 1; transition: transform 220ms ease; }
+  .faq-item[open] > summary::after { transform: rotate(45deg); }
+  .faq-item[open] > :not(summary) { animation: faq-reveal 300ms both cubic-bezier(.2,.75,.25,1); }
+  .hero-copy > :nth-child(1) { animation: hero-rise 720ms 60ms both cubic-bezier(.2,.75,.25,1); }
+  .hero-copy > :nth-child(2) { animation: hero-rise 720ms 150ms both cubic-bezier(.2,.75,.25,1); }
+  .hero-copy > :nth-child(3) { animation: hero-rise 720ms 240ms both cubic-bezier(.2,.75,.25,1); }
+  .hero-copy > :nth-child(4) { animation: hero-rise 720ms 330ms both cubic-bezier(.2,.75,.25,1); }
+  .hero-portrait { animation: hero-portrait-in 900ms 120ms both cubic-bezier(.18,.72,.25,1); }
+  .hero-symbol { animation: symbol-drift 12s ease-in-out infinite alternate; transform-origin: 70% 30%; }
+  @keyframes hero-rise { from { opacity: 0; transform: translate3d(0,18px,0); } to { opacity: 1; transform: translate3d(0,0,0); } }
+  @keyframes hero-portrait-in { from { opacity: 0; transform: translate3d(0,24px,0) scale(.975); } to { opacity: 1; transform: translate3d(0,0,0) scale(1); } }
+  @keyframes symbol-drift { from { transform: translate3d(0,-5px,0) rotate(-2deg); } to { transform: translate3d(0,8px,0) rotate(2deg); } }
+  @keyframes faq-reveal { from { opacity: 0; transform: translate3d(0,-5px,0); } to { opacity: 1; transform: translate3d(0,0,0); } }
 }
 
 /* Dental motion uses small inline SVGs and transform/opacity-only movement. */
@@ -149,6 +171,8 @@
 .hero-dental-accent .dental-motion { --dental-motion-size: 3.1rem; }
 .hero-dental-accent .dental-motion__art { filter: drop-shadow(0 2px 4px rgb(0 0 0 / .15)); }
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .section-entry[data-motion], .motion-card, .hero-copy > *, .hero-portrait, .hero-symbol { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
   .dental-motion *, .dental-motion::before, .dental-motion::after { animation: none !important; }
   .dental-motion--molar .dental-motion__tooth { transform: none; }
 }

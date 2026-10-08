@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 
 interface AnimateInProps {
@@ -8,7 +11,24 @@ interface AnimateInProps {
   className?: string
 }
 
-/** Content is visible in the server response; optional CSS motion never gates reading. */
+/** Server-rendered content stays readable without JavaScript or motion support. */
 export default function AnimateIn({ children, className }: AnimateInProps) {
-  return <div className={cn('section-entry', className)}>{children}</div>
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const element = ref.current
+    if (!element || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    element.dataset.motion = 'pending'
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return
+      element.dataset.motion = 'visible'
+      observer.disconnect()
+    }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' })
+
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [])
+
+  return <div ref={ref} className={cn('section-entry', className)}>{children}</div>
 }

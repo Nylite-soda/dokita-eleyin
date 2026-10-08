@@ -14,7 +14,7 @@ export default function Hero({ data }: HeroProps) {
   return (
     <section className="relative flex items-center bg-brand-darkBlue text-white overflow-hidden pt-32 pb-16">
       {/* Background Symbol Overlay */}
-      <div className="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 opacity-10 pointer-events-none">
+      <div className="hero-symbol absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 opacity-10 pointer-events-none">
         <Image width={600} height={600}
           src="/logos/icon-symbol-white.svg" 
           alt="" 
@@ -24,7 +24,7 @@ export default function Hero({ data }: HeroProps) {
 
       <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
-          <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
+          <div className="hero-copy lg:col-span-7 space-y-8 text-center lg:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.1] tracking-tight">
               {data?.heroHeadline || "Making oral health knowledge simple and accessible."}
             </h1>
@@ -48,7 +48,7 @@ export default function Hero({ data }: HeroProps) {
 
           </div>
           
-          <div className="lg:col-span-5 w-full">
+          <div className="hero-portrait lg:col-span-5 w-full">
             <div className="py-8 lg:py-0 flex items-center justify-center">
               <div className="aspect-[4/5] w-full max-w-md lg:max-w-none max-h-[70vh] lg:max-h-[85vh] rounded-[3rem] overflow-hidden border-8 border-white/5 relative shadow-2xl">
                 {data?.heroImage?.asset ? (
