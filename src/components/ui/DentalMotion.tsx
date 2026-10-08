@@ -34,13 +34,17 @@ export default function DentalMotion({ variant = 'molar', label = 'Loading', siz
           <filter id={`${id}-tooth-shadow`} x="-30%" y="-30%" width="160%" height="170%">
             <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#0d2d5c" floodOpacity=".22" />
           </filter>
+          <clipPath id={`${id}-tooth-clip`}>
+            <path d="M30 47c0-15 10-24 23-24 8 0 12 4 17 4s9-4 17-4c13 0 23 9 23 24 0 12-5 19-9 27-5 10-6 25-13 25-8 0-6-22-16-22s-8 22-16 22c-7 0-8-15-13-25-4-8-13-15-13-27Z" />
+          </clipPath>
         </defs>
         <g className="dental-motion__orbit" fill="none" stroke="currentColor" strokeWidth="1.5" opacity=".4">
           <ellipse cx="60" cy="60" rx="52" ry="27" />
         </g>
         <g className="dental-motion__tooth" filter={`url(#${id}-tooth-shadow)`}>
           <g transform="translate(-10 0)">
-            <path d="M30 47c0-15 10-24 23-24 8 0 12 4 17 4s9-4 17-4c13 0 23 9 23 24 0 12-5 19-9 27-5 10-6 25-13 25-8 0-6-22-16-22s-8 22-16 22c-7 0-8-15-13-25-4-8-13-15-13-27Z" fill={`url(#${id}-enamel)`} stroke="#2e5ca9" strokeWidth="2" />
+            <path d="M30 47c0-15 10-24 23-24 8 0 12 4 17 4s9-4 17-4c13 0 23 9 23 24 0 12-5 19-9 27-5 10-6 25-13 25-8 0-6-22-16-22s-8 22-16 22c-7 0-8-15-13-25-4-8-13-15-13-27Z" fill="#e9faff" stroke="#2e5ca9" strokeWidth="2" />
+            <rect className="dental-motion__tooth-fill" x="20" y="100" width="100" height="82" fill={`url(#${id}-enamel)`} clipPath={`url(#${id}-tooth-clip)`} />
             <path d="M35 47c0-11 7-18 16-18 5 0 9 3 13 5 4-2 8-5 13-5 9 0 16 7 16 18 0 8-4 15-8 22-4 8-5 15-8 20-2-9-6-15-13-15s-11 6-13 15c-3-5-4-12-8-20-4-7-8-14-8-22Z" fill={`url(#${id}-root)`} opacity=".58" />
             <path d="M42 42c2-7 7-10 13-10" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" opacity=".9" />
             <circle cx="81" cy="42" r="2.5" fill="#fff" opacity=".9" />
