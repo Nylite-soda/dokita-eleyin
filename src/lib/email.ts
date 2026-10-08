@@ -1,3 +1,6 @@
+import 'server-only'
+import { z } from 'zod'
+
 interface EmailAddress { email: string; name?: string }
 interface SendEmailParams {
   to: EmailAddress
@@ -6,10 +9,14 @@ interface SendEmailParams {
   htmlBody: string
 }
 
+export function emailConfigured(): boolean {
+  return Boolean(process.env.ZEPTOMAIL_API_KEY && z.email().safeParse(process.env.ZEPTOMAIL_FROM_EMAIL).success)
+}
+
 export async function sendEmail({ to, replyTo, subject, htmlBody }: SendEmailParams): Promise<void> {
   const apiKey = process.env.ZEPTOMAIL_API_KEY
   const fromEmail = process.env.ZEPTOMAIL_FROM_EMAIL
-  if (!apiKey || !fromEmail) throw new Error('Email delivery is not configured.')
+  if (!apiKey || !fromEmail || !emailConfigured()) throw new Error('Email delivery is not configured.')
 
   const response = await fetch('https://api.zeptomail.com/v1.1/email', {
     method: 'POST',

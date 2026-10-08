@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { contactFormSchema, partnershipFormSchema } from '@/components/forms/form-schemas'
-import { sendEmail } from '@/lib/zeptomail'
+import { emailConfigured, sendEmail } from '@/lib/email'
 import { createInquiry } from '@/lib/communications'
 import { rateLimit } from '@/lib/auth'
 
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
   const senderName = isPartnership ? data.contactPerson : data.name
   const subject = isPartnership ? `Partnership: ${data.organizationName}` : data.subject
   await createInquiry({ kind: isPartnership ? 'partnership' : 'contact', name: senderName, email: data.email, phone: isPartnership ? data.phone : '', organizationName: isPartnership ? data.organizationName : '', subject, message: data.message, interest: isPartnership ? data.interest : [] })
-  if (!process.env.ZEPTOMAIL_API_KEY || !z.email().safeParse(process.env.ZEPTOMAIL_FROM_EMAIL).success || !z.email().safeParse(adminEmail).success) return NextResponse.json({ success: true, stored: true })
+  if (!emailConfigured() || !z.email().safeParse(adminEmail).success) return NextResponse.json({ success: true, stored: true })
   const rows: [string, string][] = [
     ['From', `${senderName} (${data.email})`],
     ['Subject', subject],

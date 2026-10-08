@@ -1,10 +1,10 @@
 import 'server-only'
 import { getPrisma } from '@/lib/prisma'
 import { getBookingRow, queueBookingEmail } from './booking'
-import { sendEmail } from './zeptomail'
+import { emailConfigured, sendEmail } from './email'
 
 const db = getPrisma()
-export const emailConfigured = () => Boolean(process.env.ZEPTOMAIL_API_KEY && process.env.ZEPTOMAIL_FROM_EMAIL)
+export { emailConfigured }
 
 export async function queueBookingReminders(now = new Date()) {
   const rows = await db.bookings.findMany({ where: { status: 'confirmed', start_at: { gt: now.toISOString(), lte: new Date(now.getTime() + 86_400_000).toISOString() } }, select: { id: true, start_at: true } })

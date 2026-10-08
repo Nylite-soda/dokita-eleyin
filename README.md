@@ -44,4 +44,4 @@ The `scripts/backup.mjs` utility backs up only the legacy SQLite source and its 
 
 In Vercel, set `DATABASE_URL` and `DIRECT_URL` as server-only environment variables, along with the site URL and any payment/email secrets. Apply pending migrations with `npm run prisma:deploy` before deploying code that depends on them. CMS image bytes are stored in PostgreSQL, so they persist across Vercel function instances and deployments.
 
-Booking services, hours, blackouts, content, users, messages, and subscribers are managed in `/admin`. Configure optional Paystack and email adapters in the server environment.
+Booking services, hours, blackouts, content, users, messages, and subscribers are managed in `/admin`. ZeptoMail handles transactional messages. Newsletter signups are stored in PostgreSQL and the admin workspace can export the consented mailing list as CSV; newsletter campaigns are not sent by ZeptoMail. Set `ZEPTOMAIL_API_KEY` and `ZEPTOMAIL_FROM_EMAIL` in the server environment. Form submissions, subscribers, and booking notifications are saved to PostgreSQL before email delivery is attempted.

@@ -16,24 +16,5 @@ export async function POST(req: Request) {
   const result = newsletterFormSchema.safeParse(body)
   if (!result.success) return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 })
   await upsertSubscriber(result.data.email)
-
-  const apiKey = process.env.BREVO_API_KEY
-  const listId = Number(process.env.BREVO_LIST_ID)
-  if (!apiKey || !Number.isSafeInteger(listId) || listId < 1) return NextResponse.json({ success: true, stored: true })
-
-  try {
-    const response = await fetch('https://api.brevo.com/v3/contacts', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'api-key': apiKey },
-      body: JSON.stringify({ email: result.data.email, listIds: [listId], updateEnabled: true }),
-      signal: AbortSignal.timeout(12_000),
-    })
-    if (response.ok) return NextResponse.json({ success: true })
-    const responseData: unknown = await response.json().catch(() => null)
-    if (responseData && typeof responseData === 'object' && 'code' in responseData && responseData.code === 'duplicate_parameter') return NextResponse.json({ success: true })
-    return NextResponse.json({ success: true, stored: true })
-  } catch {
-    console.error('Newsletter provider request failed.')
-    return NextResponse.json({ success: true, stored: true })
-  }
+  return NextResponse.json({ success: true, stored: true })
 }
